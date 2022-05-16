@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 
 @Data
@@ -16,6 +17,7 @@ public class UserPerson {
 
     @Id
     private String username;
+    @NotEmpty
     private String password;
 
 
