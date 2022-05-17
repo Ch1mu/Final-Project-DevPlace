@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -22,9 +23,9 @@ public class PersonService {
 
     public UserPerson getByUsername(String username)
     {
-        UserPerson uP = pR.getByUsername();
 
-            return pR.getByUsername();
+
+            return pR.getByUsername(username);
 
     }
 
@@ -50,5 +51,18 @@ public class PersonService {
         {
             return false;
         }
+    }
+    @Transactional
+    public UserPerson update(UserPerson c, String username)
+    {
+        if(pR.getByUsername(username) != null)
+        {
+            c.setUsername(username);
+            return  pR.save(c);
+        }
+        else {
+            return  null;
+        }
+
     }
 }

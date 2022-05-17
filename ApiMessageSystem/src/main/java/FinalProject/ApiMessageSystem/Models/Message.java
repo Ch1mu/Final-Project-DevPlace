@@ -18,8 +18,8 @@ public class Message {
     private String content;
     private Date date;
 
-    @OneToMany
-    @JoinColumn(name = "dni")
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "username")
     private UserPerson uP;
 
     public Message(String content)
