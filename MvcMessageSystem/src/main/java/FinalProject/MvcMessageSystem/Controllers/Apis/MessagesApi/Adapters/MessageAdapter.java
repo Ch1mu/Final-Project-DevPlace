@@ -37,15 +37,15 @@ public class MessageAdapter {
         return messages;
     }
 
-    public void delete(String username) {
+    public void delete(long idMsg) {
 
         RestTemplate rt = new RestTemplate();
-        rt.delete(url + "delete/" + username);
+        rt.delete(url  + idMsg);
     }
 
-    public void save(UserPerson es) {
+    public void save(Message es, long chatId) {
 
         RestTemplate rt = new RestTemplate();
-        rt.postForObject(url + "save", es, UserPerson.class);
+        rt.postForObject(url + "save/" + chatId, es, Message.class);
     }
 }
