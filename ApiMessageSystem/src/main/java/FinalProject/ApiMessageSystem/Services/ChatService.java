@@ -2,6 +2,7 @@ package FinalProject.ApiMessageSystem.Services;
 
 import FinalProject.ApiMessageSystem.Models.*;
 import FinalProject.ApiMessageSystem.Repositories.ChatRepository;
+import FinalProject.ApiMessageSystem.Repositories.PersonPerChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class ChatService {
     @Autowired
     private ChatRepository cR;
     @Autowired
-    private PersonPerChat ppcR;
+    private PersonPerChatRepository ppcR;
 
     public List<Chat> getAll()
     {
@@ -34,8 +35,10 @@ public class ChatService {
         {
            Chat c = cR.save(new Chat());
 
-            PersonPerChat mpc = new PersonPerChat(, msg);
-            mpcR.save(mpc);
+            PersonPerChat mpc1 = new PersonPerChat(c, user1 );
+            PersonPerChat mpc2 = new PersonPerChat(c, user2);
+            ppcR.save(mpc1);
+            ppcR.save(mpc2);
             return  true;
         }
         catch (Exception e)
@@ -44,10 +47,10 @@ public class ChatService {
         }
     }
 
-    public boolean delete(long id_msg)
+    public boolean delete(long chatId)
     {
         try {
-            mR.deleteById(id_msg);
+            cR.deleteById(chatId);
             return true;
         }
         catch (EmptyResultDataAccessException e)
