@@ -41,10 +41,10 @@ public class PersonService {
             return false;
         }
     }
-    public boolean delete(String dni)
+    public boolean delete(String user)
     {
         try {
-            pR.deleteByDni(dni);
+            pR.deleteById(user);
             return true;
         }
         catch (EmptyResultDataAccessException e)
