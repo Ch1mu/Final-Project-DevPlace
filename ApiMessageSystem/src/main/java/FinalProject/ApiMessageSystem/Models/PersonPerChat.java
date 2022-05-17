@@ -14,7 +14,7 @@ public class PersonPerChat {
     private Chat chat;
 
     @ManyToOne
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "dni")
     private UserPerson user;
 
 

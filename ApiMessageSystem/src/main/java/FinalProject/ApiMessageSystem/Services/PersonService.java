@@ -19,6 +19,7 @@ public class PersonService {
     {
         return pR.findAll();
     }
+
     public UserPerson getByUsername(String username)
     {
         UserPerson uP = pR.getByUsername();
@@ -26,6 +27,7 @@ public class PersonService {
             return pR.getByUsername();
 
     }
+
     public boolean save(UserPerson uP)
     {
         try
