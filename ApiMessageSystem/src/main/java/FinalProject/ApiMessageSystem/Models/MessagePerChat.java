@@ -4,6 +4,8 @@ package FinalProject.ApiMessageSystem.Models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -20,7 +22,13 @@ public class MessagePerChat {
     @JoinColumn(name = "idChat")
     private Chat chat;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "idMessage")
     private Message message;
+
+    public MessagePerChat(Chat chat, Message message) {
+        this.chat = chat;
+        this.message = message;
+    }
 }
