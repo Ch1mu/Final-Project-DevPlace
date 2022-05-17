@@ -41,17 +41,11 @@ public class PersonService {
             return false;
         }
     }
-<<<<<<< Updated upstream
+
     public boolean delete(String user)
     {
         try {
             pR.deleteById(user);
-=======
-    public boolean delete(String username)
-    {
-        try {
-            pR.deleteByUsername(username);
->>>>>>> Stashed changes
             return true;
         }
         catch (EmptyResultDataAccessException e)
@@ -59,6 +53,7 @@ public class PersonService {
             return false;
         }
     }
+
     @Transactional
     public UserPerson update(UserPerson c, String username)
     {
