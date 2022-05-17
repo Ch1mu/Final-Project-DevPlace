@@ -9,13 +9,13 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 @Repository
 public class PersonAdapter {
-    private final String url = "http://localhost:8000/";
+    private final String url = "http://localhost:8080/persons/";
     @Autowired
     public ArrayList<UserPerson> findAll() {
 
         RestTemplate rt = new RestTemplate();
         ArrayList<UserPerson> users;
-        users = rt.getForObject(url + "persons", ArrayList.class);
+        users = rt.getForObject(url, ArrayList.class);
         return users;
     }
 

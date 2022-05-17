@@ -43,7 +43,7 @@ public class UserPersonController {
     public ResponseEntity<Object> save(@RequestBody @Valid UserPerson up){
         boolean flag = ps.save(up);
         if(flag)
-            return ResponseEntity.status(200).body("Sucess.");
+            return ResponseEntity.status(200).body("Success.");
         else
             return ResponseEntity.status(400).body("Error.");
     }
@@ -63,7 +63,7 @@ public class UserPersonController {
         try{
             boolean flag = ps.delete(username);
             if(flag){
-                return ResponseEntity.status(200).body("Sucess.");
+                return ResponseEntity.status(200).body("Success.");
             } else {
                 return ResponseEntity.status(204).body("No username found with the specified DNI.");
             }

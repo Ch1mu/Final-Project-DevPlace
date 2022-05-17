@@ -1,6 +1,7 @@
 package FinalProject.MvcMessageSystem.Controllers.Apis.MessagesApi.Ports;
 
 import FinalProject.MvcMessageSystem.Controllers.Apis.MessagesApi.Adapters.PersonAdapter;
+import FinalProject.MvcMessageSystem.Models.UserPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,32 +12,28 @@ public class PersonPort {
     @Autowired
     PersonAdapter pA;
 
-    public void save(Users user)
+    public void save(UserPerson user)
     {
-        uR.save(user);
+        pA.save(user);
     }
 
-    //I Premium
-    public boolean isPremium(Users user)
-    {
-        return uR.isAdmin(user.getEmail());
-    }
+
 
     //GET ALL
-    public ArrayList<Users> getAll()
+    public ArrayList<UserPerson> getAll()
     {
-        return (ArrayList<Users>) uR.findAll();
+        return pA.findAll();
     }
 
 
     //GET BY ID
-    public Users getByEmail(String email)
+    public UserPerson getByUsername(String user)
     {
-        return uR.getByEmail(email);
+        return pA.getByUsername(user);
     }
 
     //DELETE
-    public void delete(long id) {
-        uR.delete(id);
+    public void delete(String user) {
+        pA.delete(user);
     }
 }
