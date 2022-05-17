@@ -7,5 +7,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PersonRepository extends JpaRepository<UserPerson, String> {
     public UserPerson getByUsername(String username);
+<<<<<<< Updated upstream
 
+=======
+    public void deleteByUsername(String username);
+>>>>>>> Stashed changes
 }

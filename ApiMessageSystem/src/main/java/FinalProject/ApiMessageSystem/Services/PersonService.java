@@ -41,10 +41,17 @@ public class PersonService {
             return false;
         }
     }
+<<<<<<< Updated upstream
     public boolean delete(String user)
     {
         try {
             pR.deleteById(user);
+=======
+    public boolean delete(String username)
+    {
+        try {
+            pR.deleteByUsername(username);
+>>>>>>> Stashed changes
             return true;
         }
         catch (EmptyResultDataAccessException e)
