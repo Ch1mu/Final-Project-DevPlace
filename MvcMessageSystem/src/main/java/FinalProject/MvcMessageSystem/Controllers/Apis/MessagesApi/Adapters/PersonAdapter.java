@@ -27,15 +27,15 @@ public class PersonAdapter {
         return user;
     }
 
-    public void delete(String username {
+    public void delete(String username) {
 
         RestTemplate rt = new RestTemplate();
         rt.delete(url + "delete/" + username);
     }
 
-    public void save(Users es) {
-        String url = "http://localhost:8000/users/save";
+    public void save(UserPerson es) {
+
         RestTemplate rt = new RestTemplate();
-        rt.postForObject(url, es, Users.class);
+        rt.postForObject(url + "save", es, UserPerson.class);
     }
 }
