@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
 
@@ -20,6 +17,10 @@ public class Message {
     @NotEmpty
     private String content;
     private Date date;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "username")
+    private UserPerson uP;
 
     public Message(String content)
     {
