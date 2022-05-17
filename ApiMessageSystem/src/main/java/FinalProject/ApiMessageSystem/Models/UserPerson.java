@@ -26,4 +26,6 @@ public class UserPerson {
     private String firstName;
     @NotEmpty
     private String lastName;
+    @NotEmpty
+    private String language;
 }
