@@ -14,7 +14,7 @@ import java.util.List;
 public class PersonService {
 
     @Autowired
-    PersonRepository pR;
+    private PersonRepository pR;
 
     public List<UserPerson> getAll()
     {

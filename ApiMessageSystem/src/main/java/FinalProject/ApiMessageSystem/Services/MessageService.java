@@ -18,11 +18,11 @@ import java.util.Optional;
 public class MessageService {
 
     @Autowired
-    MessageRepository mR;
+    private MessageRepository mR;
     @Autowired
-    MessagePerChatRepository mpcR;
+    private MessagePerChatRepository mpcR;
     @Autowired
-    ChatRepository cR;
+    private ChatRepository cR;
 
     public List<Message> getAll()
     {

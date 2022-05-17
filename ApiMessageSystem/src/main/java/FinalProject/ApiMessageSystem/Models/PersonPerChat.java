@@ -1,11 +1,17 @@
 package FinalProject.ApiMessageSystem.Models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PersonPerChat {
 
     @Id
@@ -14,7 +20,6 @@ public class PersonPerChat {
 
     @ManyToOne
     @JoinColumn(name = "idChat")
-
     private Chat chat;
 
     @ManyToOne
@@ -23,5 +28,8 @@ public class PersonPerChat {
     @JoinColumn(name = "username")
     private UserPerson user;
 
-
+    public PersonPerChat(Chat chat, UserPerson user) {
+        this.chat = chat;
+        this.user = user;
+    }
 }
