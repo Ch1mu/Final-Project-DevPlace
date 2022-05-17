@@ -16,9 +16,11 @@ import javax.validation.constraints.NotEmpty;
 public class UserPerson {
 
     @Id
+    private String dni;
+    @NotEmpty
     private String username;
     @NotEmpty
-    private String password;
-
-
+    private String firstName;
+    @NotEmpty
+    private String lastName;
 }
