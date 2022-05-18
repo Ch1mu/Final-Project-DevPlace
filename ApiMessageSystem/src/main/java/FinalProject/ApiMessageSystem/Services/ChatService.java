@@ -31,6 +31,10 @@ public class ChatService {
     {
         return cR.getChatPerUser(username);
     }
+    public List<PersonPerChat> getReceiver(String username, long chatId)
+    {
+        return cR.getReceiver(chatId, username);
+    }
     public boolean newChat(UserPerson user1, UserPerson user2)
     {
 
