@@ -41,6 +41,7 @@ public class PersonService {
             return false;
         }
     }
+
     public boolean delete(String user)
     {
         try {
@@ -52,6 +53,7 @@ public class PersonService {
             return false;
         }
     }
+
     @Transactional
     public UserPerson update(UserPerson c, String username)
     {
