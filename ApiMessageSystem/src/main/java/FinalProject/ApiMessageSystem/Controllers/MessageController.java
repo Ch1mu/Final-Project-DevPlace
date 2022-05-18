@@ -15,7 +15,7 @@ public class MessageController {
     @Autowired
     MessageService ms;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<Object> getAll() {
         try {
             List<Message> messages = ms.getAll();

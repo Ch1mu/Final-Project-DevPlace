@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts}">
+<head>
+    <meta charset="UTF-8">
+    <title>Steam</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+
+
+
+<br> <br>
+<div class = "container">
+
+    <table class ="table table-hover">
+
+        <thead>
+        <tr>
+            <th>CHATS </th>
+
+
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="chat: ${chats}">
+
+            <div th:switch="${chat.user.username}">
+                <p th:case="${userAccount}}"></p>
+
+                <td  th:text = ${chat.user.username}></td>
+            </div>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

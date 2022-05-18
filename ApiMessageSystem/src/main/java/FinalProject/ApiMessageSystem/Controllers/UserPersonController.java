@@ -18,7 +18,7 @@ public class UserPersonController {
     @Autowired
     PersonService ps;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<Object> getAll(){
         List<UserPerson> userPersons = ps.getAll();
         if(userPersons.isEmpty()){
