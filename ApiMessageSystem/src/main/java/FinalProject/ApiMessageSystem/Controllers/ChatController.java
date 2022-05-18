@@ -1,11 +1,17 @@
 package FinalProject.ApiMessageSystem.Controllers;
 
 import FinalProject.ApiMessageSystem.Models.Chat;
+<<<<<<< HEAD
 import FinalProject.ApiMessageSystem.Models.PersonPerChat;
 import FinalProject.ApiMessageSystem.Models.UserPerson;
 import FinalProject.ApiMessageSystem.Services.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.SecurityContextProvider;
+=======
+import FinalProject.ApiMessageSystem.Models.UserPerson;
+import FinalProject.ApiMessageSystem.Services.ChatService;
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> b420c4f0562b26948439de5eedd270a80c041bf9
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,9 +45,10 @@ public class ChatController {
         }
     }
 
+
     @GetMapping("/all/{username}")
     public ResponseEntity<Object> getChatPerUser(@PathVariable("username") String username){
-        List<PersonPerChat> chat = cs.getReceiver(username);
+        List<Chat> chat = cs.getChatPerUser(username);
         if(chat.isEmpty()){
             return ResponseEntity.status(204).body("Empty");
         } else {

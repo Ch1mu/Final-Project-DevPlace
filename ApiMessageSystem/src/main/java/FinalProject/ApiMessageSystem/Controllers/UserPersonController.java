@@ -49,7 +49,7 @@ public class UserPersonController {
     }
 
     @PutMapping("/update/{username}")
-    public ResponseEntity<Object> update(@RequestBody @Valid UserPerson up, @PathVariable("dni") String username) {
+    public ResponseEntity<Object> update(@RequestBody @Valid UserPerson up, @PathVariable("username") String username) {
         UserPerson person = ps.update(up, username);
         if (person == null)
             return ResponseEntity.status(204).body(person);
@@ -65,7 +65,7 @@ public class UserPersonController {
             if(flag){
                 return ResponseEntity.status(200).body("Success.");
             } else {
-                return ResponseEntity.status(204).body("No username found with the specified DNI.");
+                return ResponseEntity.status(204).body("No username found with the specified Username.");
             }
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error.");
