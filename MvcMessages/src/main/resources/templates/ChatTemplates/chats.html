@@ -32,11 +32,8 @@
         <tbody>
         <tr th:each="chat: ${chats}">
 
-            <div th:switch="${chat.user.username}">
-                <p th:case="${userAccount}}"></p>
+                <td><a th:text = ${chat.user.username} th:href="@{/messages/{chatId} (chatId = ${chat.chat.idChat}) }"></a></td>
 
-                <td  th:text = ${chat.user.username}></td>
-            </div>
 
         </tr>
         </tbody>

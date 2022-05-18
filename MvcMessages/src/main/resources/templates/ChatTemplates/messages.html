@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts}">
+<head>
+  <meta charset="UTF-8">
+  <title>Steam</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+</head>
+<body>
+
+
+
+<br> <br>
+<div class = "container">
+
+  <table class ="table table-hover">
+
+    <thead>
+    <tr>
+      <th>Thread </th>
+
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="message: ${messages}">
+
+      <td>
+        <b><label  th:text="${message.up.username}"></label></b>
+        <label> at </label>
+        <label th:text="${message.date}"></label><br>
+        <label th:text="${message.content}"></label>
+
+      </td>
+
+
+    </tr>
+
+    </tbody>
+  </table>
+  <form th:object="${newMsg}" th:action="@{/messages/save/{id} (id = ${chatId})}" method='POST'>
+    <input class="form-control" type='text' name='content' id="*{content}" />
+    <button type="submit">
+      Send
+    </button>
+    <br>
+  </form>
+</div>
+
+</body>
+</html>
