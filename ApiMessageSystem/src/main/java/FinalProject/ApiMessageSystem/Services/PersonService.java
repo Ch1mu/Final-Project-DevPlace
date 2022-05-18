@@ -14,7 +14,7 @@ import java.util.List;
 public class PersonService {
 
     @Autowired
-    PersonRepository pR;
+    private PersonRepository pR;
 
     public List<UserPerson> getAll()
     {
@@ -41,10 +41,11 @@ public class PersonService {
             return false;
         }
     }
-    public boolean delete(String dni)
+
+    public boolean delete(String user)
     {
         try {
-            pR.deleteByDni(dni);
+            pR.deleteById(user);
             return true;
         }
         catch (EmptyResultDataAccessException e)
@@ -52,6 +53,7 @@ public class PersonService {
             return false;
         }
     }
+
     @Transactional
     public UserPerson update(UserPerson c, String username)
     {

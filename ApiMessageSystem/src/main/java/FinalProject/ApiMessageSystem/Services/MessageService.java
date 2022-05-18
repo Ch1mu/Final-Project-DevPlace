@@ -18,11 +18,11 @@ import java.util.Optional;
 public class MessageService {
 
     @Autowired
-    MessageRepository mR;
+    private MessageRepository mR;
     @Autowired
-    MessagePerChatRepository mpcR;
+    private MessagePerChatRepository mpcR;
     @Autowired
-    ChatRepository cR;
+    private ChatRepository cR;
 
     public List<Message> getAll()
     {
@@ -38,20 +38,20 @@ public class MessageService {
         return  mR.getByChat(chatId);
     }
 
-    public boolean save(Message msg, long chatId)
+    public Message save(Message msg, long chatId)
     {
 
         try
         {
-            mR.save(msg);
+           Message msge = mR.save(msg);
             Chat chat = cR.getById(chatId);
             MessagePerChat mpc = new MessagePerChat(chat, msg);
             mpcR.save(mpc);
-            return  true;
+            return  msge;
         }
         catch (Exception e)
         {
-            return  false;
+            return  null;
         }
     }
     public boolean delete(long id_msg)

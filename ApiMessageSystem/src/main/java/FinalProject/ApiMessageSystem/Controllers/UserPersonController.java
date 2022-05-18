@@ -18,14 +18,14 @@ public class UserPersonController {
     @Autowired
     PersonService ps;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<Object> getAll(){
         List<UserPerson> userPersons = ps.getAll();
-        if(!userPersons.isEmpty()){
-            return ResponseEntity.status(200).body(userPersons);
+        if(userPersons.isEmpty()){
+            return ResponseEntity.status(204).body(userPersons);
         }
         else {
-            return ResponseEntity.status(204).body(userPersons);
+            return ResponseEntity.status(200).body(userPersons);
         }
     }
 
@@ -43,14 +43,14 @@ public class UserPersonController {
     public ResponseEntity<Object> save(@RequestBody @Valid UserPerson up){
         boolean flag = ps.save(up);
         if(flag)
-            return ResponseEntity.status(200).body("Sucess.");
+            return ResponseEntity.status(200).body("Success.");
         else
             return ResponseEntity.status(400).body("Error.");
     }
 
-    @PutMapping("/update/{dni}")
-    public ResponseEntity<Object> update(@RequestBody @Valid UserPerson up, @PathVariable("dni") String dni) {
-        UserPerson person = ps.update(up, dni);
+    @PutMapping("/update/{username}")
+    public ResponseEntity<Object> update(@RequestBody @Valid UserPerson up, @PathVariable("username") String username) {
+        UserPerson person = ps.update(up, username);
         if (person == null)
             return ResponseEntity.status(204).body(person);
         else
@@ -58,14 +58,14 @@ public class UserPersonController {
 
     }
 
-    @DeleteMapping("/delete/{dni}")
-    public ResponseEntity<Object> delete(@PathVariable("dni") String dni){
+    @DeleteMapping("/delete/{username}")
+    public ResponseEntity<Object> delete(@PathVariable("username") String username){
         try{
-            boolean flag = ps.delete(dni);
+            boolean flag = ps.delete(username);
             if(flag){
-                return ResponseEntity.status(200).body("Sucess.");
+                return ResponseEntity.status(200).body("Success.");
             } else {
-                return ResponseEntity.status(204).body("No username found with the specified DNI.");
+                return ResponseEntity.status(204).body("No username found with the specified Username.");
             }
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error.");

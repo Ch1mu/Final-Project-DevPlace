@@ -1,4 +1,4 @@
-package FinalProject.ApiMessageSystem.Models;
+package FinalProject.MvcMessages.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,28 +6,29 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Message {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private long idMessage;
     @NotEmpty
     private String content;
-    private Date date;
+    private Date date = new Date(System.currentTimeMillis());
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "username")
-    private UserPerson uP;
+
+    private UserPerson up;
 
     public Message(String content)
     {
         this.content = content;
-        this.date = new Date(System.currentTimeMillis());
     }
 
+    public Message(UserPerson up) {
+        this.up = up;
+    }
 }
