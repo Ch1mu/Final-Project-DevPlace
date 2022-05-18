@@ -2,6 +2,7 @@ package FinalProject.MvcMessages.Controllers;
 
 import FinalProject.MvcMessages.Controllers.Services.UserService;
 import FinalProject.MvcMessages.Models.Adapters.UserAdapter;
+import FinalProject.MvcMessages.Models.UserPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,5 +36,15 @@ public class LoginController {
         boolean result = uS.save(uA);
 
         return "redirect:/login";
+    }
+    @GetMapping("/user/home")
+    public String userHome()
+    {
+        return "UserTemplates/home";
+    }
+    @GetMapping("/admin/home")
+    public String adminHome()
+    {
+        return "AdminTemplates/home";
     }
 }

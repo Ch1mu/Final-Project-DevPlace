@@ -1,9 +1,17 @@
 package FinalProject.ApiMessageSystem.Controllers;
 
 import FinalProject.ApiMessageSystem.Models.Chat;
+<<<<<<< HEAD
+import FinalProject.ApiMessageSystem.Models.PersonPerChat;
 import FinalProject.ApiMessageSystem.Models.UserPerson;
 import FinalProject.ApiMessageSystem.Services.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.SecurityContextProvider;
+=======
+import FinalProject.ApiMessageSystem.Models.UserPerson;
+import FinalProject.ApiMessageSystem.Services.ChatService;
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> b420c4f0562b26948439de5eedd270a80c041bf9
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +36,7 @@ public class ChatController {
 
     @GetMapping("/{chatId}")
     public ResponseEntity<Object> getByID(@PathVariable("chatId") long chatId){
+
         Chat chat = cs.getById(chatId);
         if(chat == null){
             return ResponseEntity.status(204).body("Empty");
@@ -36,7 +45,8 @@ public class ChatController {
         }
     }
 
-    @GetMapping("/{username}")
+
+    @GetMapping("/all/{username}")
     public ResponseEntity<Object> getChatPerUser(@PathVariable("username") String username){
         List<Chat> chat = cs.getChatPerUser(username);
         if(chat.isEmpty()){
