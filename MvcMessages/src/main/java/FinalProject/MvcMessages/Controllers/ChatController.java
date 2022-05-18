@@ -22,10 +22,10 @@ public class ChatController {
     @GetMapping("/all/{username}")
     public String getChatsPerUser(@PathVariable("username") String username, Model model)
     {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 
         model.addAttribute("chats", cP.getChatsPerUser(username));
-        model.addAttribute("userAccount", uS.getSessionUsername());
+
         return "ChatTemplates/chats";
     }
 }

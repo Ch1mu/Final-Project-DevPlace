@@ -2,6 +2,7 @@ package FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Adapters;
 
 import FinalProject.MvcMessages.Models.Chat;
 import FinalProject.MvcMessages.Models.Message;
+import FinalProject.MvcMessages.Models.PersonPerChat;
 import FinalProject.MvcMessages.Models.UserPerson;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
@@ -26,10 +27,10 @@ public class ChatAdapter {
         chats = rt.getForObject(url +chatId, Chat.class);
         return chats;
     }
-    public List<Chat> getChatsPerUser(String username){
+    public List<PersonPerChat> getChatsPerUser(String username){
 
         RestTemplate rt = new RestTemplate();
-        ArrayList<Chat> chats;
+        List<PersonPerChat> chats;
         chats = rt.getForObject(url+"all/" + username, ArrayList.class);
         return chats;
     }

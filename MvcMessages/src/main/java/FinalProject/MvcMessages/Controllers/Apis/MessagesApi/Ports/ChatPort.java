@@ -4,6 +4,7 @@ import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Adapters.ChatAdapte
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Adapters.MessageAdapter;
 import FinalProject.MvcMessages.Models.Chat;
 import FinalProject.MvcMessages.Models.Message;
+import FinalProject.MvcMessages.Models.PersonPerChat;
 import FinalProject.MvcMessages.Models.UserPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class ChatPort {
     }
 
     //GET BY ALL CHATS BY USER
-    public List<Chat> getChatsPerUser(String user) {
+    public List<PersonPerChat> getChatsPerUser(String user) {
         return cA.getChatsPerUser(user);
     }
 

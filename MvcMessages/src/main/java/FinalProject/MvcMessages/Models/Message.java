@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 
@@ -13,14 +14,21 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Message {
+
     private long idMessage;
     @NotEmpty
     private String content;
-    @NotEmpty
-    private Date date;
-    @NotEmpty
-    private String username;
+    private Date date = new Date(System.currentTimeMillis());
 
 
+    private UserPerson up;
 
+    public Message(String content)
+    {
+        this.content = content;
+    }
+
+    public Message(UserPerson up) {
+        this.up = up;
+    }
 }

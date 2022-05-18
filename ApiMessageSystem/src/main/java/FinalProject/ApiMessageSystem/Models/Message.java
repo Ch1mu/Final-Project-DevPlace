@@ -10,6 +10,8 @@ import java.sql.Date;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
