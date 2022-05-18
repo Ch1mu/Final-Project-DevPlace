@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts}">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+
+
+
+<br><br><br><br>
+<div class ="container">
+    <div style="text-align: center">
+        <form th:action="@{/signup}" th:object="${user}" method="post">
+            <div class="form-group">
+                <h2 style="text-align:center">User Info</h2>
+                <label>UserName: </label>
+                <input class="form-control" type="text" name="username" th:field="*{username}"required/>
+                <br>
+                <label>Password: </label>
+                <input class="form-control" type="password" name="password" th:field="*{password}" required/>
+                <br>
+                <h2 style="text-align:center">Personal Info</h2>
+                <label>First Name: </label>
+                <input class="form-control" type="text" name="firstName" th:field="*{firstName}" required/>
+                <br>
+                <label>Last Name: </label>
+                <input class="form-control" type="text" name="lastName" th:field="*{lastName}" required/>
+                <br>
+                <label>DNI: </label>
+                <input class="form-control" type="text" name="dni" th:field="*{dni}" required/>
+                <br>
+                <label>Language: </label>
+                <input class="form-control" type="text" name="language" th:field="*{language}" required/>
+                <br>
+            </div>
+            <button class="btn btn-light" type="submit">
+                Sign Up
+            </button>
+            <br>
+        </form>
+        <br>
+
+            <a class="btn btn-light" th:href="@{/login}"> Go to Login </a>
+
+    </div>
+</div>
+
+</body>
+</html>
