@@ -22,6 +22,6 @@ public class UserPerson {
     @NotEmpty
     private String lastName;
     @NotEmpty
-    private  String language;
+    private Language language;
 
 }
