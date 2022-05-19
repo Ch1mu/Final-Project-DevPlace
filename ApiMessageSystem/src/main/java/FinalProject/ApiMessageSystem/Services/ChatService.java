@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,15 +36,14 @@ public class ChatService {
     {
         return ppcR.getChatUserName(username, chatId);
     }
-    public boolean newChat(List<UserPerson> upl)
+    public boolean newChat(ArrayList<UserPerson> upl)
     {
-
         try
         {
            Chat c = cR.save(new Chat());
             for(UserPerson u: upl)
             {
-                PersonPerChat mpc1 = new PersonPerChat(c, u );
+                PersonPerChat mpc1 = new PersonPerChat(c, u);
                 ppcR.save(mpc1);
             }
 
