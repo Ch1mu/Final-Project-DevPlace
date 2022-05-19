@@ -3,15 +3,19 @@ package FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Adapters;
 
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Token.TokenManager;
 import FinalProject.MvcMessages.Models.Message;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -34,17 +38,29 @@ public class MessageAdapter {
         messages = rt.getForObject(url + username + "/" + chatId, ArrayList.class);
         return messages;
     }
-    public List<Message> getByChat(long chatId){
+    public List<Message> getByChat(long chatId) throws URISyntaxException {
 
-        RestTemplate rt = new RestTemplate();
-        ArrayList<Message> messages;
-        HttpHeaders headers = new HttpHeaders();
+       RestTemplate rt = new RestTemplate();
+        ArrayList<Message> messages = new ArrayList<>();
+        messages = rt.getForObject(url + chatId, ArrayList.class);
+
+      /* HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer "+ tM.generateToken());
+        headers.add("Authorization", "Bearer " + tM.generateToken());
 
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        try {
 
-        messages = rt.getForObject(url + chatId,ArrayList.class);
+            HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+            ResponseEntity<List<Message>> response = rt.exchange(url+chatId, HttpMethod.GET, entity, .class);
+
+             messages = new Gson().fromJson(response.getBody(), ArrayList.class);
+
+        }
+        catch (Exception eek) {
+            System.out.println("** Exception: "+ eek.getMessage());
+        }
+*/
+
         return messages;
     }
 
@@ -57,12 +73,13 @@ public class MessageAdapter {
     public void save(Message es, long chatId) {
 
         RestTemplate rt = new RestTemplate();
-        //rt.postForObject(url + "save/" + chatId, es, Message.class);
-        HttpHeaders headers = new HttpHeaders();
+       rt.postForObject(url + "save/" + chatId, es, Message.class);
+
+       /* HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer "+ tM.generateToken());
 
         HttpEntity<Message> entity = new HttpEntity<Message>(es,headers);
-        String result = rt.postForObject(url, entity, String.class);
+        String result = rt.postForObject(url, entity, String.class); */
     }
 }
