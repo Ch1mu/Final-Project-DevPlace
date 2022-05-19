@@ -35,10 +35,10 @@ public class ChatAdapter {
         return chats;
     }
 
-    public void delete(long idChat) {
+    public void delete(long idChat, String username) {
 
         RestTemplate rt = new RestTemplate();
-        rt.delete(url  + idChat);
+        rt.delete(url  + idChat +"/"+username);
     }
 
     public void newChat(UserPerson u1, UserPerson u2) {
