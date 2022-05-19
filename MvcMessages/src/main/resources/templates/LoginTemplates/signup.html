@@ -39,10 +39,9 @@
                 <input class="form-control" type="text" name="dni" th:field="*{dni}" required/>
                 <br>
                 <label>Language: </label>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled>Open this select menu</option>
+                <select  th:field="*{languageName}" class="form-select" aria-label="Default select example" required>
                     <div  th:each="lg: ${languages}">
-                    <option value="${lg.name}" th:field="*{languageName}" th:text="${lg.name}"></option>
+                    <option name="languageName" th:value="${lg.name}"  th:text="${lg.name}"></option>
                         </div>
 
                 </select>

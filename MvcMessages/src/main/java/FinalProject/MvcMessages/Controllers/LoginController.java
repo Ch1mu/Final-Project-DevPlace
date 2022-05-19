@@ -39,7 +39,6 @@ public class LoginController {
     @PostMapping("/signup")
     public String performSignUp(@ModelAttribute("user") UserAdapter uA)
     {
-        System.out.println(uA.getLanguageName());
         uA.setLanguage(lp.getByName(uA.getLanguageName()));
         boolean result = uS.save(uA);
 
