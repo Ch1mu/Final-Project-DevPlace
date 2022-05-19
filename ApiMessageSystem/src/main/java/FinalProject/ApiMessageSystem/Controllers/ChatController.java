@@ -1,20 +1,15 @@
 package FinalProject.ApiMessageSystem.Controllers;
 
 import FinalProject.ApiMessageSystem.Models.Chat;
-<<<<<<< HEAD
 import FinalProject.ApiMessageSystem.Models.PersonPerChat;
 import FinalProject.ApiMessageSystem.Models.UserPerson;
+import FinalProject.ApiMessageSystem.Repositories.ChatRepository;
 import FinalProject.ApiMessageSystem.Services.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.SecurityContextProvider;
-=======
-import FinalProject.ApiMessageSystem.Models.UserPerson;
-import FinalProject.ApiMessageSystem.Services.ChatService;
-import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> b420c4f0562b26948439de5eedd270a80c041bf9
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,6 +17,8 @@ import java.util.List;
 public class ChatController {
     @Autowired
     ChatService cs;
+    @Autowired
+    ChatRepository cr;
 
     @GetMapping("/")
     public ResponseEntity<Object> getAll(){
@@ -48,11 +45,20 @@ public class ChatController {
 
     @GetMapping("/all/{username}")
     public ResponseEntity<Object> getChatPerUser(@PathVariable("username") String username){
-        List<Chat> chat = cs.getChatPerUser(username);
-        if(chat.isEmpty()){
+
+        List<Chat> chats = cs.getChatPerUser(username);
+
+        ArrayList<PersonPerChat> ppc = new ArrayList<>();
+
+        for(int i = 0; i<chats.size(); i++)
+        {
+             ppc.add(cs.getReceiver(username, chats.get(i).getIdChat()));
+        }
+
+        if(ppc.isEmpty()){
             return ResponseEntity.status(204).body("Empty");
         } else {
-            return ResponseEntity.status(200).body(chat);
+            return ResponseEntity.status(200).body(ppc);
         }
     }
 
