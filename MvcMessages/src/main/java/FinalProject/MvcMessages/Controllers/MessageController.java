@@ -2,6 +2,7 @@ package FinalProject.MvcMessages.Controllers;
 
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.MessagePort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.PersonPort;
+import FinalProject.MvcMessages.Controllers.Services.UserService;
 import FinalProject.MvcMessages.Models.Message;
 import FinalProject.MvcMessages.Models.UserPerson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URISyntaxException;
+
 @Controller
 @RequestMapping("/messages")
 public class MessageController {
     @Autowired
-    MessagePort mP;
+    private MessagePort mP;
     @Autowired
-    PersonPort pp;
+    private PersonPort pp;
+    @Autowired
+    private UserService uS;
     @GetMapping("/{idChat}")
     public String getMessagesPerChat(@PathVariable("idChat") long idChat, Model model)
     {
@@ -33,7 +38,11 @@ public class MessageController {
 
         Message msg = new Message(pp.getByUsername(userN));
         msg.setUp(pp.getByUsername(userN));
-        model.addAttribute("messages", mP.getByChat(idChat));
+        try {
+            model.addAttribute("messages", mP.getByChat(idChat));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         model.addAttribute("newMsg", msg);
         model.addAttribute("chatId", idChat);
         model.addAttribute("user", userN);
@@ -41,16 +50,10 @@ public class MessageController {
     }
 
     @PostMapping("/save/{chatId}")
-    public  String sendMessages(@ModelAttribute("newMsg") Message msg, @PathVariable("chatId") long chatId)
+    public String sendMessages(@ModelAttribute("newMsg") Message msg, @PathVariable("chatId") long chatId)
     {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userN = "";
-        if (principal instanceof UserDetails) {
-
-            userN = ((UserDetails) principal).getUsername();
-
-        }
-    msg.setUp(pp.getByUsername(userN));
+        String userN = uS.getSessionUsername();
+        msg.setUp(pp.getByUsername(userN));
            mP.save(msg, chatId);
         return "redirect:/messages/" + chatId;
     }

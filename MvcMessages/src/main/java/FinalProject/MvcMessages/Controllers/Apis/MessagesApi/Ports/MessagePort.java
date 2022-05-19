@@ -7,6 +7,7 @@ import FinalProject.MvcMessages.Models.UserPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class MessagePort {
     }
 
     //GET BY CHAT
-    public List<Message> getByChat(long chatId) {
+    public List<Message> getByChat(long chatId) throws URISyntaxException {
         return mA.getByChat(chatId);
     }
 
