@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long languageId;
     private String name;
     private String code;
 }

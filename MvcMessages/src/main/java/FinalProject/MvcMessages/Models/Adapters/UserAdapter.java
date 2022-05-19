@@ -24,5 +24,7 @@ public class UserAdapter {
         private String lastName;
         @NotEmpty
         private Language language;
+        @NotEmpty
+        private String languageName;
 
 }
