@@ -41,8 +41,9 @@
         </thead>
         <tbody>
         <div th:each="chat: ${chats}">
+            <tr>
                 <td style="text-align:center" class="alert alert-primary"><a style="font-size:17px" th:text = ${chat.user.username} th:href="@{/messages/{chatId} (chatId = ${chat.chat.idChat}) }"> </a></td>
-
+            </tr>
 
         </div>
         </tbody>

@@ -3,7 +3,10 @@ package FinalProject.MvcMessages.Controllers;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.ChatPort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.PersonPort;
 import FinalProject.MvcMessages.Controllers.Services.UserService;
+import FinalProject.MvcMessages.Models.PersonPerChat;
 import FinalProject.MvcMessages.Models.UserPerson;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/chats")
@@ -41,15 +45,36 @@ public class ChatController {
     @PostMapping("/new")
     public String newChat(@ModelAttribute("newChat") String user)
     {
+        boolean flag = true;
         ArrayList<UserPerson> ups = new ArrayList<>();
         String username = uS.getSessionUsername();
         ups.add(pP.getByUsername(username));
         UserPerson up =  pP.getByUsername(user);
-        if(up!=null && !up.getUsername().equals(username))
-        {
-            ups.add(up);
-            cP.newChat(ups);
+        ObjectMapper mapper = new ObjectMapper();
+
+
+
+        if(up!=null && !up.getUsername().equals(username) ) {
+
+            List<PersonPerChat> list=  mapper.convertValue(cP.getChatsPerUser(username),  new TypeReference<List<PersonPerChat>>() { });
+
+
+            for(PersonPerChat ppc: list)
+            {
+                if(ppc.getUser().getUsername().equals(up.getUsername()))
+                {
+                    flag = false;
+                }
+
+            }
+            if(flag)
+            {
+                ups.add(up);
+                cP.newChat(ups);
+            }
+
         }
+
 
         return "redirect:/chats/all/" +username;
     }
