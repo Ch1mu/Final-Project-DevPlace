@@ -63,7 +63,7 @@ public class ChatController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Object> newChat(@RequestBody List<UserPerson> upl){
+    public ResponseEntity<Object> newChat(@RequestBody ArrayList<UserPerson> upl){
         boolean flag = cs.newChat(upl);
         if(flag){
             return ResponseEntity.status(200).body("Success.");
