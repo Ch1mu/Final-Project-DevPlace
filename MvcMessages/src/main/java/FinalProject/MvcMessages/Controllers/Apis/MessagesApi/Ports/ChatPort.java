@@ -43,7 +43,7 @@ public class ChatPort {
 
 
     //DELETE
-    public void delete(long chatId) {
-        cA.delete(chatId);
+    public void delete(long chatId, String user) {
+        cA.delete(chatId, user);
     }
 }
