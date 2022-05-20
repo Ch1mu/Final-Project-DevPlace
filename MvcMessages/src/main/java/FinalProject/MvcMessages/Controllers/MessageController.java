@@ -56,9 +56,11 @@ public class MessageController {
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
-
+            String add ="";
+            Chat chat = cP.getById(idChat);
+            model.addAttribute("add",  add);
             model.addAttribute("newMsg", msg);
-            model.addAttribute("chatId", idChat);
+            model.addAttribute("chat", chat);
             model.addAttribute("user", userN);
             return "ChatTemplates/messages";
         }

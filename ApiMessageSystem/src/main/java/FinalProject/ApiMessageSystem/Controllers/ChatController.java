@@ -68,21 +68,23 @@ public class ChatController {
         }
     }
 
-    @PostMapping("/new/{chatName}")
-    public void newChat(@RequestBody ArrayList<UserPerson> upl, @PathVariable("chatName") String chatName){
-        Chat flag = cs.newChat(upl, chatName, false);
-        if(flag != null){
-             ResponseEntity.ok(200);
-        } else {
-             ResponseEntity.status(400).body("Error.");
-        }
-    }
+
     @PostMapping("/addToGroup/{chatId}")
     public void newChat(@RequestBody UserPerson upl, @PathVariable("chatId") long chatId){
         Chat chat = cs.getById(chatId);
         PersonPerChat pp =  new PersonPerChat(chat ,upl);
         boolean flag = ppc.save(pp);
         if(flag){
+            ResponseEntity.ok(200);
+        } else {
+            ResponseEntity.status(400).body("Error.");
+        }
+    }
+
+    @PostMapping("/new/{chatName}")
+    public void newChat(@RequestBody ArrayList<UserPerson> upl, @PathVariable("chatName") String chatName){
+        Chat flag = cs.newChat(upl, chatName, false);
+        if(flag != null){
             ResponseEntity.ok(200);
         } else {
             ResponseEntity.status(400).body("Error.");
