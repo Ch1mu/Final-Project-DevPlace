@@ -38,4 +38,11 @@ public class PersonAdapter {
         RestTemplate rt = new RestTemplate();
         rt.postForObject(url + "save", es, UserPerson.class);
     }
+
+
+    //UPDATE
+    public void update(UserPerson es){
+        RestTemplate rt = new RestTemplate();
+        rt.put(url+"delete/"+es.getUsername(), es, UserPerson.class);
+    }
 }
