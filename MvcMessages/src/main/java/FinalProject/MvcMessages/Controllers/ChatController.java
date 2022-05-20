@@ -103,33 +103,32 @@ public class ChatController {
     }
 
     @PostMapping("/addPerson/{chatId}")
-    public void addPersonToGroup(@ModelAttribute("username") String username, @PathVariable("chatId") long chatId) {
+    public String addPersonToGroup(@ModelAttribute("add") String username, @PathVariable("chatId") long chatId) {
 
         boolean flag = true;
         UserPerson up = pP.getByUsername(username);
         ObjectMapper mapper = new ObjectMapper();
-        List<PersonPerChat> list = new ArrayList<>();
+        List<Chat> list = new ArrayList<>();
+        String myUser = uS.getSessionUsername();
 
+        if (up != null && !up.getUsername().equals(myUser)) { //if user to add isnt null, if trying to add ourself
 
-        if (up != null && !up.getUsername().equals(username)) {
+            List<PersonPerChat> ppc = mapper.convertValue(cP.getAllUsersPerChat(chatId), new TypeReference<List<PersonPerChat>>() {});
+            for(PersonPerChat p : ppc) {
 
-            if (cP.getChatsPerUser(username) != null) {
-                list = mapper.convertValue(cP.getChatsPerUser(username), new TypeReference<List<PersonPerChat>>() {
-                });
-            }
-            for (PersonPerChat ppc : list) {
-                if (ppc.getUser().getUsername().equals(up.getUsername())) {
+                if(p.getUser().getUsername().equals(username))
                     flag = false;
-                }
 
             }
-            if (up != null) {
+
+            if (flag) {
 
                 cP.addPersonToGroup(up, chatId);
-                ResponseEntity.ok(200);
-            } else {
-                ResponseEntity.status(400).body("Error.");
+            }
+
+
+                }
+        return "redirect:/messages/" +chatId;
             }
         }
-    }
-}
+
