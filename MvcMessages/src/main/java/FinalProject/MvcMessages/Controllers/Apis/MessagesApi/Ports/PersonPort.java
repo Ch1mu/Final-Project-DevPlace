@@ -3,6 +3,7 @@ package FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Adapters.PersonAdapter;
 import FinalProject.MvcMessages.Models.UserPerson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +32,14 @@ public class PersonPort {
     {
         return pA.getByUsername(user);
     }
+
+    //UPDATE
+
+    public void update(UserPerson userPerson){
+        pA.update(userPerson);
+    }
+
+
 
     //DELETE
     public void delete(String user) {

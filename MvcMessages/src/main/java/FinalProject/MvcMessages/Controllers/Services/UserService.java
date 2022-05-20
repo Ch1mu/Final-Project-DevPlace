@@ -87,4 +87,20 @@ public class UserService implements UserDetailsService {
         }
         return  userAccount;
     }
+
+    public boolean update(UserAdapter u) {
+        try {
+            Role role = new Role();
+            role.setId(2);
+            role.setName("USER");
+            MyUser myuser = new MyUser(u.getUsername(), pE.encode(u.getPassword()), role);
+            UserPerson person = new UserPerson(u.getUsername(), u.getDni(), u.getFirstName(), u.getLastName(), u.getLanguage());
+            ur.save(myuser);
+            pp.save(person);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
 }

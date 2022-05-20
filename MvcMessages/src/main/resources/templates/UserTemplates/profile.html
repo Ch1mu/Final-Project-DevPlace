@@ -33,6 +33,9 @@ cursor: pointer;
     <h4>Last Name: </h4><label th:text="${user.lastName}"></label>
     <h4>DNI: </h4><label th:text="${user.dni}"></label>
     <h4>Language: </h4><label th:text="${user.language.name}"></label>
+    <br>
+    <button type="button" class="btn btn-outline-info"> <a th:href="@{/user/update/{username} (username = ${user.username})}"> Update Info </a> </button>
+
 </div>
 </body>
 </html>
