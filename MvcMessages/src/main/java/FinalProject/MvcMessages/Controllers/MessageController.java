@@ -28,13 +28,7 @@ public class MessageController {
     @GetMapping("/{idChat}")
     public String getMessagesPerChat(@PathVariable("idChat") long idChat, Model model)
     {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userN = "";
-        if (principal instanceof UserDetails) {
-
-            userN = ((UserDetails) principal).getUsername();
-
-        }
+        String userN = uS.getSessionUsername();
 
         Message msg = new Message(pp.getByUsername(userN));
         msg.setUp(pp.getByUsername(userN));

@@ -28,20 +28,16 @@ public class ChatController {
     private UserService uS;
     @Autowired
     private PersonPort pP;
-    @GetMapping("/all/{username}")
-    public String getChatsPerUser(@PathVariable("username") String username, Model model)
+    @GetMapping("/all")
+    public String getChatsPerUser(Model model)
     {
         String userChatName ="";
+        String username = uS.getSessionUsername();
         model.addAttribute("chats", cP.getChatsPerUser(username));
         model.addAttribute("newChat", userChatName);
         return "ChatTemplates/chats";
     }
-    @GetMapping("/redirect")
-    public String redirectToChats()
-    {
-       String username = uS.getSessionUsername();
-        return "redirect:/chats/all/" +username;
-    }
+
     @PostMapping("/new")
     public String newChat(@ModelAttribute("newChat") String user)
     {
