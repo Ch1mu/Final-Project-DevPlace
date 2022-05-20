@@ -16,7 +16,7 @@ public class ChatService {
     @Autowired
     private ChatRepository cR;
     @Autowired
-    private PersonPerChatRepository ppcR;
+    private PpcService ppcS;
 
     public List<Chat> getAll()
     {
@@ -32,19 +32,16 @@ public class ChatService {
     {
         return cR.getChatPerUser(username);
     }
-    public PersonPerChat getReceiver(String username, long chatId)
-    {
-        return ppcR.getChatUserName(username, chatId);
-    }
-    public Chat newChat(ArrayList<UserPerson> upl)
+
+    public Chat newChat(ArrayList<UserPerson> upl, String name, boolean isGroup)
     {
         try
         {
-           Chat c = cR.save(new Chat());
+           Chat c = cR.save(new Chat(name, isGroup));
             for(UserPerson u: upl)
             {
                 PersonPerChat mpc1 = new PersonPerChat(c, u);
-                ppcR.save(mpc1);
+                ppcS.save(mpc1);
             }
 
 

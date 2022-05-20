@@ -4,6 +4,7 @@ import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.ChatPort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.MessagePort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.PersonPort;
 import FinalProject.MvcMessages.Controllers.Services.UserService;
+import FinalProject.MvcMessages.Models.Chat;
 import FinalProject.MvcMessages.Models.Message;
 import FinalProject.MvcMessages.Models.PersonPerChat;
 import FinalProject.MvcMessages.Models.UserPerson;
@@ -55,6 +56,7 @@ public class MessageController {
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
+
             model.addAttribute("newMsg", msg);
             model.addAttribute("chatId", idChat);
             model.addAttribute("user", userN);

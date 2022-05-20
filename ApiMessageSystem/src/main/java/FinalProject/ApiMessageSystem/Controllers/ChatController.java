@@ -22,6 +22,7 @@ public class ChatController {
    private PpcService ppc;
 
 
+
     @GetMapping("/")
     public ResponseEntity<Object> getAll(){
         List<Chat> chats = cs.getAll();
@@ -60,29 +61,43 @@ public class ChatController {
 
         List<Chat> chats = cs.getChatPerUser(username);
 
-        ArrayList<PersonPerChat> ppc = new ArrayList<>();
-
-        for(int i = 0; i<chats.size(); i++)
-        {
-             ppc.add(cs.getReceiver(username, chats.get(i).getIdChat()));
-        }
-
-        if(ppc.isEmpty()){
+        if(chats.isEmpty()){
             return ResponseEntity.status(204).body("Empty");
         } else {
-            return ResponseEntity.status(200).body(ppc);
+            return ResponseEntity.status(200).body(chats);
         }
     }
 
-    @PostMapping("/new")
-    public void newChat(@RequestBody ArrayList<UserPerson> upl){
-        Chat flag = cs.newChat(upl);
+    @PostMapping("/new/{chatName}")
+    public void newChat(@RequestBody ArrayList<UserPerson> upl, @PathVariable("chatName") String chatName){
+        Chat flag = cs.newChat(upl, chatName, false);
         if(flag != null){
              ResponseEntity.ok(200);
         } else {
              ResponseEntity.status(400).body("Error.");
         }
     }
+    @PostMapping("/addToGroup/{chatId}")
+    public void newChat(@RequestBody UserPerson upl, @PathVariable("chatId") long chatId){
+        Chat chat = cs.getById(chatId);
+        PersonPerChat pp =  new PersonPerChat(chat ,upl);
+        boolean flag = ppc.save(pp);
+        if(flag){
+            ResponseEntity.ok(200);
+        } else {
+            ResponseEntity.status(400).body("Error.");
+        }
+    }
+    @PostMapping("/newGroup/{chatName}")
+    public void newGroup(@RequestBody ArrayList<UserPerson> upl, @PathVariable("chatName") String chatName){
+        Chat flag = cs.newChat(upl, chatName, true);
+        if(flag != null){
+            ResponseEntity.ok(200);
+        } else {
+            ResponseEntity.status(400).body("Error.");
+        }
+    }
+
 
     @DeleteMapping("/{chatId}")
     public ResponseEntity<Object> deleteChat(@PathVariable("chatID") long chatId){
@@ -95,9 +110,12 @@ public class ChatController {
     }
 
     @DeleteMapping("/{chatId}/{user}")
-    public ResponseEntity<Object> deletePersonFromChat(@PathVariable("chatID") long chatId, @PathVariable("user") String user){
-        boolean flag = ppc.delete(chatId, user);
-        if(flag){
+    public ResponseEntity<Object> deletePersonFromChat(@PathVariable("chatId") long chatId, @PathVariable("user") String user){
+        PersonPerChat pp = ppc.takeASinglePerson(chatId, user);
+
+        if(pp != null){
+
+            ppc.delete(pp.getId());
             return ResponseEntity.status(200).body("Success.");
         } else {
             return ResponseEntity.status(400).body("Error.");

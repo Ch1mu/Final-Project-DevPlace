@@ -15,5 +15,7 @@ import javax.validation.constraints.NotNull;
 public class Chat {
     @NotNull
     private long idChat;
+    private String name;
+    private boolean isGroup;
 
 }

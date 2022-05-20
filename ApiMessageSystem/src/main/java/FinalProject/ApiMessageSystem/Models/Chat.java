@@ -17,5 +17,12 @@ public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idChat;
+    private String name;
+    private boolean isGroup;
+    public Chat(String name, boolean isGroup)
+    {
+        this.name = name;
+        this.isGroup = isGroup;
+        }
 
 }
