@@ -3,11 +3,13 @@ package FinalProject.MvcMessages.Controllers;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.ChatPort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.PersonPort;
 import FinalProject.MvcMessages.Controllers.Services.UserService;
+import FinalProject.MvcMessages.Models.Chat;
 import FinalProject.MvcMessages.Models.PersonPerChat;
 import FinalProject.MvcMessages.Models.UserPerson;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,58 +26,109 @@ public class ChatController {
 
     @Autowired
     private ChatPort cP;
+
+
     @Autowired
     private UserService uS;
     @Autowired
     private PersonPort pP;
-    @GetMapping("/all/{username}")
-    public String getChatsPerUser(@PathVariable("username") String username, Model model)
-    {
-        String userChatName ="";
+
+    @GetMapping("/all")
+    public String getChatsPerUser(Model model) {
+        String userChatName = "";
+        String groupName = "";
+        String username = uS.getSessionUsername();
+
         model.addAttribute("chats", cP.getChatsPerUser(username));
         model.addAttribute("newChat", userChatName);
+        model.addAttribute("newGroup", groupName);
         return "ChatTemplates/chats";
     }
-    @GetMapping("/redirect")
-    public String redirectToChats()
-    {
-       String username = uS.getSessionUsername();
-        return "redirect:/chats/all/" +username;
-    }
+
     @PostMapping("/new")
-    public String newChat(@ModelAttribute("newChat") String user)
-    {
+    public String newChat(@ModelAttribute("newChat") String user) {
         boolean flag = true;
         ArrayList<UserPerson> ups = new ArrayList<>();
-        String username = uS.getSessionUsername();
-        ups.add(pP.getByUsername(username));
-        UserPerson up =  pP.getByUsername(user);
+        String username = uS.getSessionUsername();//get session username
+        ups.add(pP.getByUsername(username)); //add user yo array
+        UserPerson up = pP.getByUsername(user); //get person to add to our chat
         ObjectMapper mapper = new ObjectMapper();
+        List<Chat> list = new ArrayList<>();
 
 
+        if (up != null && !up.getUsername().equals(username)) { //if user to add, if trying to add ourself
 
-        if(up!=null && !up.getUsername().equals(username) ) {
-
-            List<PersonPerChat> list=  mapper.convertValue(cP.getChatsPerUser(username),  new TypeReference<List<PersonPerChat>>() { });
-
-
-            for(PersonPerChat ppc: list)
-            {
-                if(ppc.getUser().getUsername().equals(up.getUsername()))
-                {
-                    flag = false;
-                }
-
+            if (cP.getChatsPerUser(username) != null) { //if there are chats
+                list = mapper.convertValue( cP.getChatsPerUser(username),new TypeReference<List<Chat>>() { //Get All Chats
+                });
             }
-            if(flag)
-            {
+
+            for (Chat chat : list) {
+
+                if(!chat.isGroup()) //if is
+                {
+
+                    List<PersonPerChat> ppc = mapper.convertValue( cP.getAllUsersPerChat(chat.getIdChat()),new TypeReference<List<PersonPerChat>>() {});//Get All Chats
+                    for(PersonPerChat p : ppc) {
+                        if (p.getUser().getUsername().equals(up.getUsername())) { //if there already is a chat with that person
+                            flag = false;
+                        }
+                    }
+                }
+            }
+            if (flag) {
                 ups.add(up);
-                cP.newChat(ups);
+                cP.newChat(ups, username + " & " + up.getUsername());
             }
 
         }
 
 
-        return "redirect:/chats/all/" +username;
+        return "redirect:/chats/all/";
     }
-}
+
+    @PostMapping("/newGroup")
+    public String newGroup(@ModelAttribute("newChat") String groupName) {
+        ArrayList<UserPerson> ups = new ArrayList<>();
+        String username = uS.getSessionUsername();
+        ups.add(pP.getByUsername(username));
+        cP.newGroup(ups, groupName);
+        return "redirect:/chats/all/";
+    }
+
+    @GetMapping("/delete/{chatId}")
+    public String deletePersonFromChat(@PathVariable("chatId") long chatId) {
+        cP.delete(chatId, uS.getSessionUsername());
+        return "redirect:/chats/all";
+    }
+
+    @PostMapping("/addPerson/{chatId}")
+    public String addPersonToGroup(@ModelAttribute("add") String username, @PathVariable("chatId") long chatId) {
+
+        boolean flag = true;
+        UserPerson up = pP.getByUsername(username);
+        ObjectMapper mapper = new ObjectMapper();
+        List<Chat> list = new ArrayList<>();
+        String myUser = uS.getSessionUsername();
+
+        if (up != null && !up.getUsername().equals(myUser)) { //if user to add isnt null, if trying to add ourself
+
+            List<PersonPerChat> ppc = mapper.convertValue(cP.getAllUsersPerChat(chatId), new TypeReference<List<PersonPerChat>>() {});
+            for(PersonPerChat p : ppc) {
+
+                if(p.getUser().getUsername().equals(username))
+                    flag = false;
+
+            }
+
+            if (flag) {
+
+                cP.addPersonToGroup(up, chatId);
+            }
+
+
+                }
+        return "redirect:/messages/" +chatId;
+            }
+        }
+

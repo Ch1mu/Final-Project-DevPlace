@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts}">
+<head>
+    <meta charset="UTF-8">
+    <title>Update info</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+
+
+
+<br><br><br>
+<div class ="container">
+    <div style="text-align: center">
+        <form th:action="@{/user/update/{username} (username = ${user.username})}" th:object="${user}"  method="post">
+            <div class="form-group">
+                <h2 style="text-align:center">User Info</h2>
+                <input class="form-control" readonly="readonly" type="text" name="username" th:field="*{username}"required/>
+                <br>
+                <label>Password: </label>
+                <input class="form-control" type="password" name="password" th:field="*{password}" required/>
+                <br>
+                <h2 style="text-align:center">Update Personal Info</h2>
+                <br>
+                <label>First Name: </label>
+                <input class="form-control" type="text" name="firstName" th:field="*{firstName}" required/>
+                <br>
+                <label>Last Name: </label>
+                <input class="form-control" type="text" name="lastName" th:field="*{lastName}" required/>
+                <br>
+                <label>DNI: </label>
+                <input class="form-control" type="text" name="dni" th:field="*{dni}" required/>
+                <br>
+                <label>Language: </label>
+                <select  th:field="*{languageName}" class="form-select" aria-label="Default select example" required>
+                    <div  th:each="lg: ${languages}">
+                        <option name="languageName" th:value="${lg.name}"  th:text="${lg.name}"></option>
+                    </div>
+
+                </select>
+                <br>
+            </div>
+            <button class="btn btn-light" type="submit">
+                Update
+            </button>
+            <br>
+        </form>
+        <br>
+
+        <a class="btn btn-light" th:href="@{/user/profile}"> Go Back </a>
+
+    </div>
+</div>
+
+</body>
+</html>

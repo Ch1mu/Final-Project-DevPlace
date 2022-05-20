@@ -17,11 +17,14 @@ public class ChatPort {
     ChatAdapter cA;
 
     //SAVE
-    public void newChat(ArrayList<UserPerson> ups)
+    public void newChat(ArrayList<UserPerson> ups, String chatName)
     {
-        cA.newChat(ups);
+        cA.newChat(ups, chatName);
     }
-
+    public void newGroup(ArrayList<UserPerson> ups, String chatName)
+    {
+        cA.newGroup(ups,chatName);
+    }
     //GET ALL
     public ArrayList<Chat> getAll()
     {
@@ -36,13 +39,21 @@ public class ChatPort {
     }
 
     //GET BY ALL CHATS BY USER
-    public List<PersonPerChat> getChatsPerUser(String user) {
+    public List<Chat> getChatsPerUser(String user) {
         return cA.getChatsPerUser(user);
+    }
+    //GET ALL USERS PER CHAT
+    public List<PersonPerChat> getAllUsersPerChat(long chatId) {
+        return cA.getAllUsersPerChat(chatId);
     }
 
 
     //DELETE
     public void delete(long chatId, String user) {
         cA.delete(chatId, user);
+    }
+    public void addPersonToGroup(UserPerson ups, long chatId)
+    {
+         cA.addPersonToGroup(ups, chatId);
     }
 }

@@ -10,6 +10,18 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <style>
+.btn{
+border-radius: 0;
+}
+.btn-md {
+border-width: 0;
+outline: none;
+border-radius: 0;
+box-shadow: 2px 2px 2px rgba(0, 0, 0, .6);
+cursor: pointer;
+}
+</style>
 </head>
 <body >
 <section th:insert="Layouts/layouts::nav"></section>
@@ -21,6 +33,20 @@
     <h4>Last Name: </h4><label th:text="${user.lastName}"></label>
     <h4>DNI: </h4><label th:text="${user.dni}"></label>
     <h4>Language: </h4><label th:text="${user.language.name}"></label>
+    <br>
+    <button type="button" class="btn btn-outline-info"> <a th:href="@{/user/update/{username} (username = ${user.username})}"> Update Info </a> </button>
+
 </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
