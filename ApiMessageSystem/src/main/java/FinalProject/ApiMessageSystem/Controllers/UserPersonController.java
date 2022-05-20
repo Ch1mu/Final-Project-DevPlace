@@ -22,7 +22,7 @@ public class UserPersonController {
     public ResponseEntity<Object> getAll(){
         List<UserPerson> userPersons = ps.getAll();
         if(userPersons.isEmpty()){
-            return ResponseEntity.status(204).body(userPersons);
+            return ResponseEntity.status(204).body("No user found");
         }
         else {
             return ResponseEntity.status(200).body(userPersons);
@@ -33,7 +33,7 @@ public class UserPersonController {
     public ResponseEntity<Object> getByUsername(@PathVariable("username") String username){
         UserPerson up = ps.getByUsername(username);
         if (up == null)
-            return ResponseEntity.status(204).body(up);
+            return ResponseEntity.status(204).body("No user found");
         else
             return ResponseEntity.status(200).body(up);
     }
@@ -52,7 +52,7 @@ public class UserPersonController {
     public ResponseEntity<Object> update(@RequestBody @Valid UserPerson up, @PathVariable("username") String username) {
         UserPerson person = ps.update(up, username);
         if (person == null)
-            return ResponseEntity.status(204).body(person);
+            return ResponseEntity.status(204).body("No user found");
         else
             return ResponseEntity.status(200).body(person);
 
