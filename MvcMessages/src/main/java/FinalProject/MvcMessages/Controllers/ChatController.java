@@ -47,12 +47,16 @@ public class ChatController {
         ups.add(pP.getByUsername(username));
         UserPerson up =  pP.getByUsername(user);
         ObjectMapper mapper = new ObjectMapper();
-
+        List<PersonPerChat> list= new ArrayList<>();
 
 
         if(up!=null && !up.getUsername().equals(username) ) {
 
-            List<PersonPerChat> list=  mapper.convertValue(cP.getChatsPerUser(username),  new TypeReference<List<PersonPerChat>>() { });
+            if(cP.getChatsPerUser(username) != null)
+            {
+               list=  mapper.convertValue(cP.getChatsPerUser(username),  new TypeReference<List<PersonPerChat>>() { });
+            }
+
 
 
             for(PersonPerChat ppc: list)
@@ -72,6 +76,6 @@ public class ChatController {
         }
 
 
-        return "redirect:/chats/all/" +username;
+        return "redirect:/chats/all/";
     }
 }
