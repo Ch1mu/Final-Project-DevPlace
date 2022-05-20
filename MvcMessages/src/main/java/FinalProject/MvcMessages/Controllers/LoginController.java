@@ -23,36 +23,25 @@ public class LoginController {
     private LanguagePort lp;
 
     @GetMapping("/login")
-    public String loginPage()
-    {
+    public String loginPage() {
         return "LoginTemplates/login";
     }
 
     @GetMapping("/signup")
-    public String signUpPage(Model model)
-    {
+    public String signUpPage(Model model) {
         model.addAttribute("user", new UserAdapter());
         model.addAttribute("language", new Language());
         model.addAttribute("languages", lp.getAll());
         return "LoginTemplates/signup";
     }
+
     @PostMapping("/signup")
-    public String performSignUp(@ModelAttribute("user") UserAdapter uA)
-    {
+    public String performSignUp(@ModelAttribute("user") UserAdapter uA) {
         uA.setLanguage(lp.getByName(uA.getLanguageName()));
         boolean result = uS.save(uA);
 
         return "redirect:/login";
     }
 
-    @GetMapping("/user/home")
-    public String userHome()
-    {
-        return "UserTemplates/home";
-    }
-    @GetMapping("/admin/home")
-    public String adminHome()
-    {
-        return "AdminTemplates/home";
-    }
 }
+

@@ -36,7 +36,7 @@ public class ChatService {
     {
         return ppcR.getChatUserName(username, chatId);
     }
-    public boolean newChat(ArrayList<UserPerson> upl)
+    public Chat newChat(ArrayList<UserPerson> upl)
     {
         try
         {
@@ -48,11 +48,11 @@ public class ChatService {
             }
 
 
-            return  true;
+            return  c;
         }
         catch (Exception e)
         {
-            return  false;
+            return  null;
         }
     }
 

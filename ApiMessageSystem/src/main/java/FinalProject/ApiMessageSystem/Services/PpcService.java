@@ -4,7 +4,10 @@ import FinalProject.ApiMessageSystem.Models.PersonPerChat;
 import FinalProject.ApiMessageSystem.Repositories.PersonPerChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PpcService {
@@ -21,5 +24,9 @@ public class PpcService {
         {
             return false;
         }
+    }
+    public List<PersonPerChat> getAllPersonsPerChat(long chatId)
+    {
+        return ppcR.getAllPersonsPerChat(chatId);
     }
 }

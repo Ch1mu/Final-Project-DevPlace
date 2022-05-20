@@ -43,6 +43,16 @@ public class ChatController {
             return ResponseEntity.status(200).body(chat);
         }
     }
+    @GetMapping("/allUsers/{chatId}")
+    public ResponseEntity<Object> getAllPersonPerChat(@PathVariable("chatId") long chatId){
+
+        List<PersonPerChat>chat = ppc.getAllPersonsPerChat(chatId);
+        if(chat == null){
+            return ResponseEntity.status(204).body("Empty");
+        } else {
+            return ResponseEntity.status(200).body(chat);
+        }
+    }
 
 
     @GetMapping("/all/{username}")
@@ -65,12 +75,12 @@ public class ChatController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Object> newChat(@RequestBody ArrayList<UserPerson> upl){
-        boolean flag = cs.newChat(upl);
-        if(flag){
-            return ResponseEntity.status(200).body("Success.");
+    public void newChat(@RequestBody ArrayList<UserPerson> upl){
+        Chat flag = cs.newChat(upl);
+        if(flag != null){
+             ResponseEntity.ok(200);
         } else {
-            return ResponseEntity.status(400).body("Error.");
+             ResponseEntity.status(400).body("Error.");
         }
     }
 
