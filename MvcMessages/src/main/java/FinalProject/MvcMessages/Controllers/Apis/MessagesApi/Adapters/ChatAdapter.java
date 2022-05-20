@@ -36,6 +36,13 @@ public class ChatAdapter {
         chats = rt.getForObject(url+"all/" + username, ArrayList.class);
         return chats;
     }
+    public List<PersonPerChat> getAllUsersPerChat(long chatId){
+
+        RestTemplate rt = new RestTemplate();
+        List<PersonPerChat> chats;
+        chats = rt.getForObject(url+"allUsers/" + chatId, ArrayList.class);
+        return chats;
+    }
 
     public void delete(long idChat, String username) {
 

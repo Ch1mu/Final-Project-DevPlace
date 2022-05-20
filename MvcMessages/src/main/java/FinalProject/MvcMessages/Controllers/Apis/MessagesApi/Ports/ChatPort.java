@@ -39,6 +39,10 @@ public class ChatPort {
     public List<PersonPerChat> getChatsPerUser(String user) {
         return cA.getChatsPerUser(user);
     }
+    //GET ALL USERS PER CHAT
+    public List<PersonPerChat> getAllUsersPerChat(long chatId) {
+        return cA.getAllUsersPerChat(chatId);
+    }
 
 
     //DELETE
