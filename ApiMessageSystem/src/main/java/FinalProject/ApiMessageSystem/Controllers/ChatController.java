@@ -43,6 +43,16 @@ public class ChatController {
             return ResponseEntity.status(200).body(chat);
         }
     }
+    @GetMapping("/allUsers/{chatId}")
+    public ResponseEntity<Object> getAllPersonPerChat(@PathVariable("chatId") long chatId){
+
+        List<PersonPerChat>chat = ppc.getAllPersonsPerChat(chatId);
+        if(chat == null){
+            return ResponseEntity.status(204).body("Empty");
+        } else {
+            return ResponseEntity.status(200).body(chat);
+        }
+    }
 
 
     @GetMapping("/all/{username}")
