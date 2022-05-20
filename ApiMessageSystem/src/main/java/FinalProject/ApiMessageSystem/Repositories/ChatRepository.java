@@ -14,7 +14,7 @@ import java.util.List;
 public interface ChatRepository extends JpaRepository<Chat, Long> {
 
     public Chat getById(long id);
-    @Query(value = "SELECT c.id_chat FROM chat c inner join person_per_chat ppc on ppc.id_chat = c.id_chat where ppc.username = :username GROUP BY c.id_chat", nativeQuery = true)
+    @Query(value = "SELECT c.id_chat, c.name,c.is_group FROM chat c inner join person_per_chat ppc on ppc.id_chat = c.id_chat where ppc.username = :username GROUP BY c.id_chat", nativeQuery = true)
     public List<Chat> getChatPerUser(@Param("username") String username);
 
 }

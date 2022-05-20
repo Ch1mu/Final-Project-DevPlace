@@ -16,15 +16,24 @@
 <section th:insert="Layouts/layouts::nav"></section>
 
 <br> <br>
+
 <div class = "container">
 
-    <form style="text-align:center" th:object="${newChat}" th:action="@{/chats/new}" method='POST'>
-        <input class="form-control" type='text' name='newChat' id="newChat" placeholder="username"/>
-<br>
-        <button class="btn btn-outline-info" type="submit">
-            New Chat
-        </button>
+    <form  style="text-align:left" th:object="${newChat}" th:action="@{/chats/new}" method='POST'>
+      <label > <input class="form-control" type='text' name='newChat' id="newChat" placeholder="username"/>
 
+        <button style="text-align:left" class="btn btn-outline-info" type="submit">
+            New Chat
+        </button></label>
+
+    </form>
+    <form style="text-align:left" th:object="${newGroup}" th:action="@{/chats/newGroup}" method='POST'>
+        <label >  <input class="form-control" type='text' name='newChat' id="newGroup" placeholder="Group Name"/>
+
+        <button style="text-align:left" class="btn btn-outline-info" type="submit">
+            New Group
+        </button>
+        </label>
     </form>
 
     <br> <br>
@@ -33,16 +42,15 @@
         <thead style="text-align:center">
         <tr>
             <th>CHATS </th>
-
-
-
+            <th></th>
 
         </tr>
         </thead>
         <tbody>
         <div th:each="chat: ${chats}">
             <tr>
-                <td style="text-align:center" class="alert alert-primary"><a style="font-size:17px" th:text = ${chat.user.username} th:href="@{/messages/{chatId} (chatId = ${chat.chat.idChat}) }"> </a></td>
+                <td style="text-align:center" class="alert alert-primary"><a style="font-size:17px" th:text = ${chat.name} th:href="@{/messages/{chatId} (chatId = ${chat.idChat}) }"> </a></td>
+                <td><a th:href="@{/chats/delete/{chatId} (chatId = ${chat.idChat})}"><button >Delete</button></a></td>
             </tr>
 
         </div>
@@ -51,4 +59,4 @@
 </div>
 
 </body>
-</html>z
+</html>

@@ -24,9 +24,6 @@
     <tr>
       <th>Thread </th>
 
-
-
-
     </tr>
     </thead>
     <tbody>
@@ -45,6 +42,7 @@
 
     </tbody>
   </table>
+
   <form th:object="${newMsg}" th:action="@{/messages/save/{id} (id = ${chatId})}" method='POST'>
     <input class="form-control" type='text' name='content' id="*{content}" />
     <button type="submit">
@@ -52,7 +50,7 @@
     </button>
     <br>
   </form>
-</div>
 
+</div>
 </body>
 </html>
