@@ -3,6 +3,7 @@ package FinalProject.MvcMessages.Controllers;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.ChatPort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.PersonPort;
 import FinalProject.MvcMessages.Controllers.Services.UserService;
+import FinalProject.MvcMessages.Models.Chat;
 import FinalProject.MvcMessages.Models.PersonPerChat;
 import FinalProject.MvcMessages.Models.UserPerson;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -25,6 +26,8 @@ public class ChatController {
 
     @Autowired
     private ChatPort cP;
+
+
     @Autowired
     private UserService uS;
     @Autowired
@@ -35,6 +38,7 @@ public class ChatController {
         String userChatName = "";
         String groupName = "";
         String username = uS.getSessionUsername();
+
         model.addAttribute("chats", cP.getChatsPerUser(username));
         model.addAttribute("newChat", userChatName);
         model.addAttribute("newGroup", groupName);
@@ -49,21 +53,28 @@ public class ChatController {
         ups.add(pP.getByUsername(username)); //add user yo array
         UserPerson up = pP.getByUsername(user); //get person to add to our chat
         ObjectMapper mapper = new ObjectMapper();
-        List<PersonPerChat> list = new ArrayList<>();
+        List<Chat> list = new ArrayList<>();
 
 
         if (up != null && !up.getUsername().equals(username)) { //if user to add, if trying to add ourself
 
-            if (cP.getChatsPerUser(username) != null) { //if
-                list = mapper.convertValue(cP.getChatsPerUser(username), new TypeReference<List<PersonPerChat>>() {
+            if (cP.getChatsPerUser(username) != null) { //if there are chats
+                list = mapper.convertValue( cP.getChatsPerUser(username),new TypeReference<List<Chat>>() { //Get All Chats
                 });
             }
 
-            for (PersonPerChat ppc : list) {
-                if (ppc.getUser().getUsername().equals(up.getUsername())) {
-                    flag = false;
-                }
+            for (Chat chat : list) {
 
+                if(!chat.isGroup()) //if is
+                {
+
+                    List<PersonPerChat> ppc = mapper.convertValue( cP.getAllUsersPerChat(chat.getIdChat()),new TypeReference<List<PersonPerChat>>() {});//Get All Chats
+                    for(PersonPerChat p : ppc) {
+                        if (p.getUser().getUsername().equals(up.getUsername())) { //if there already is a chat with that person
+                            flag = false;
+                        }
+                    }
+                }
             }
             if (flag) {
                 ups.add(up);
