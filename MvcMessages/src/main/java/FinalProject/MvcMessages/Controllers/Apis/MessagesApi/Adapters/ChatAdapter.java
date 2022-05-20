@@ -4,7 +4,9 @@ import FinalProject.MvcMessages.Models.Chat;
 import FinalProject.MvcMessages.Models.Message;
 import FinalProject.MvcMessages.Models.PersonPerChat;
 import FinalProject.MvcMessages.Models.UserPerson;
+import com.google.gson.Gson;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -35,15 +37,15 @@ public class ChatAdapter {
         return chats;
     }
 
-    public void delete(long idChat) {
+    public void delete(long idChat, String username) {
 
         RestTemplate rt = new RestTemplate();
-        rt.delete(url  + idChat);
+        rt.delete(url  + idChat +"/"+username);
     }
 
-    public void newChat(UserPerson u1, UserPerson u2) {
+    public void newChat(ArrayList<UserPerson> ups) {
 
         RestTemplate rt = new RestTemplate();
-        rt.postForObject(url + "save/" + u1, u2,UserPerson.class, UserPerson.class);
+         rt.postForObject(url + "new", ups ,ArrayList.class);
     }
 }

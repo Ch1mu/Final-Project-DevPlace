@@ -1,5 +1,6 @@
 package FinalProject.MvcMessages.Models.Adapters;
 
+import FinalProject.MvcMessages.Models.Language;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,8 @@ public class UserAdapter {
         @NotEmpty
         private String lastName;
         @NotEmpty
-        private String language;
+        private Language language;
+        @NotEmpty
+        private String languageName;
 
 }

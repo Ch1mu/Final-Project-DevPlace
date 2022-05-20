@@ -1,26 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head >
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts}">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
-    <title>Bienvenidos</title>
 </head>
 <body>
+<section th:insert="Layouts/layouts::nav"></section>
 
-<div >
-    <section class="my-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>Bienvenidos</h1>
-                    <p>Sistema de Chat</p>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
+        <h1 style="text-align:center">Welcome!</h1>
 </body>
 </html>

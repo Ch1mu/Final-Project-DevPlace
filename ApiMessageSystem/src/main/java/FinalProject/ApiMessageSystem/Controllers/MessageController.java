@@ -59,7 +59,7 @@ public class MessageController {
         }
     }
 
-    @DeleteMapping("/{idmsg}")
+    @DeleteMapping("/{id_msg}")
     public ResponseEntity<Object> deleteMessage(@PathVariable("id_msg") long id_msg) {
         boolean flag = ms.delete(id_msg);
         if (!flag) {

@@ -1,31 +1,81 @@
 package FinalProject.MvcMessages.Controllers;
 
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.ChatPort;
+import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.PersonPort;
 import FinalProject.MvcMessages.Controllers.Services.UserService;
+import FinalProject.MvcMessages.Models.PersonPerChat;
+import FinalProject.MvcMessages.Models.UserPerson;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/chats")
 public class ChatController {
 
     @Autowired
-    ChatPort cP;
+    private ChatPort cP;
     @Autowired
-    UserService uS;
+    private UserService uS;
+    @Autowired
+    private PersonPort pP;
     @GetMapping("/all/{username}")
     public String getChatsPerUser(@PathVariable("username") String username, Model model)
     {
-
-
+        String userChatName ="";
         model.addAttribute("chats", cP.getChatsPerUser(username));
-
+        model.addAttribute("newChat", userChatName);
         return "ChatTemplates/chats";
+    }
+    @GetMapping("/redirect")
+    public String redirectToChats()
+    {
+       String username = uS.getSessionUsername();
+        return "redirect:/chats/all/" +username;
+    }
+    @PostMapping("/new")
+    public String newChat(@ModelAttribute("newChat") String user)
+    {
+        boolean flag = true;
+        ArrayList<UserPerson> ups = new ArrayList<>();
+        String username = uS.getSessionUsername();
+        ups.add(pP.getByUsername(username));
+        UserPerson up =  pP.getByUsername(user);
+        ObjectMapper mapper = new ObjectMapper();
+
+
+
+        if(up!=null && !up.getUsername().equals(username) ) {
+
+            List<PersonPerChat> list=  mapper.convertValue(cP.getChatsPerUser(username),  new TypeReference<List<PersonPerChat>>() { });
+
+
+            for(PersonPerChat ppc: list)
+            {
+                if(ppc.getUser().getUsername().equals(up.getUsername()))
+                {
+                    flag = false;
+                }
+
+            }
+            if(flag)
+            {
+                ups.add(up);
+                cP.newChat(ups);
+            }
+
+        }
+
+
+        return "redirect:/chats/all/" +username;
     }
 }

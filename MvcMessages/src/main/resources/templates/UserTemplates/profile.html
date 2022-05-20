@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts}">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body >
+<section th:insert="Layouts/layouts::nav"></section>
+<div th:object="${user}" style="text-align:center">
+    <br> <br> <br>
+    <h1>Profile</h1>
+    <h4>UserName: </h4><label th:text="${user.username}"></label>
+    <h4>First Name: </h4><label th:text="${user.firstName}"></label>
+    <h4>Last Name: </h4><label th:text="${user.lastName}"></label>
+    <h4>DNI: </h4><label th:text="${user.dni}"></label>
+    <h4>Language: </h4><label th:text="${user.language.name}"></label>
+</div>
+</body>
+</html>

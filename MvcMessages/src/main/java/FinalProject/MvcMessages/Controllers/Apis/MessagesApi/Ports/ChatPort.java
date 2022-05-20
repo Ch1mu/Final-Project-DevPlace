@@ -17,11 +17,10 @@ public class ChatPort {
     ChatAdapter cA;
 
     //SAVE
-    public void newChat(UserPerson u1, UserPerson u2)
+    public void newChat(ArrayList<UserPerson> ups)
     {
-        cA.newChat(u1, u2);
+        cA.newChat(ups);
     }
-
 
     //GET ALL
     public ArrayList<Chat> getAll()
@@ -43,7 +42,7 @@ public class ChatPort {
 
 
     //DELETE
-    public void delete(long chatId) {
-        cA.delete(chatId);
+    public void delete(long chatId, String user) {
+        cA.delete(chatId, user);
     }
 }

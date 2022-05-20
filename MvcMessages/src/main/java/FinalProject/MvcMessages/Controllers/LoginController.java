@@ -1,7 +1,9 @@
 package FinalProject.MvcMessages.Controllers;
 
+import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.LanguagePort;
 import FinalProject.MvcMessages.Controllers.Services.UserService;
 import FinalProject.MvcMessages.Models.Adapters.UserAdapter;
+import FinalProject.MvcMessages.Models.Language;
 import FinalProject.MvcMessages.Models.UserPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,35 +19,29 @@ public class LoginController {
 
     @Autowired
     private UserService uS;
+    @Autowired
+    private LanguagePort lp;
 
     @GetMapping("/login")
-    public String loginPage()
-    {
+    public String loginPage() {
         return "LoginTemplates/login";
     }
 
     @GetMapping("/signup")
-    public String signUpPage(Model model)
-    {
+    public String signUpPage(Model model) {
         model.addAttribute("user", new UserAdapter());
+        model.addAttribute("language", new Language());
+        model.addAttribute("languages", lp.getAll());
         return "LoginTemplates/signup";
     }
+
     @PostMapping("/signup")
-    public String performSignUp(@ModelAttribute("user") UserAdapter uA)
-    {
+    public String performSignUp(@ModelAttribute("user") UserAdapter uA) {
+        uA.setLanguage(lp.getByName(uA.getLanguageName()));
         boolean result = uS.save(uA);
 
         return "redirect:/login";
     }
 
-    @GetMapping("/user/home")
-    public String userHome()
-    {
-        return "UserTemplates/home";
-    }
-    @GetMapping("/admin/home")
-    public String adminHome()
-    {
-        return "AdminTemplates/home";
-    }
 }
+

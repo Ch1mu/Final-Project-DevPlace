@@ -19,7 +19,7 @@
 <br><br><br><br>
 <div class ="container">
     <div style="text-align: center">
-        <form th:action="@{/signup}" th:object="${user}" method="post">
+        <form th:action="@{/signup}" th:object="${user}"  method="post">
             <div class="form-group">
                 <h2 style="text-align:center">User Info</h2>
                 <label>UserName: </label>
@@ -39,7 +39,12 @@
                 <input class="form-control" type="text" name="dni" th:field="*{dni}" required/>
                 <br>
                 <label>Language: </label>
-                <input class="form-control" type="text" name="language" th:field="*{language}" required/>
+                <select  th:field="*{languageName}" class="form-select" aria-label="Default select example" required>
+                    <div  th:each="lg: ${languages}">
+                    <option name="languageName" th:value="${lg.name}"  th:text="${lg.name}"></option>
+                        </div>
+
+                </select>
                 <br>
             </div>
             <button class="btn btn-light" type="submit">

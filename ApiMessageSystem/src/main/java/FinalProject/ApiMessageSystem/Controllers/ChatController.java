@@ -5,6 +5,7 @@ import FinalProject.ApiMessageSystem.Models.PersonPerChat;
 import FinalProject.ApiMessageSystem.Models.UserPerson;
 import FinalProject.ApiMessageSystem.Repositories.ChatRepository;
 import FinalProject.ApiMessageSystem.Services.ChatService;
+import FinalProject.ApiMessageSystem.Services.PpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,10 @@ import java.util.List;
 @RequestMapping("/chats")
 public class ChatController {
     @Autowired
-    ChatService cs;
-    @Autowired
-    ChatRepository cr;
+    private ChatService cs;
+   @Autowired
+   private PpcService ppc;
+
 
     @GetMapping("/")
     public ResponseEntity<Object> getAll(){
@@ -63,12 +65,12 @@ public class ChatController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Object> newChat(@RequestBody UserPerson user1, @RequestBody UserPerson user2){
-        boolean flag = cs.newChat(user1,user2);
-        if(flag){
-            return ResponseEntity.status(200).body("Success.");
+    public void newChat(@RequestBody ArrayList<UserPerson> upl){
+        Chat flag = cs.newChat(upl);
+        if(flag != null){
+             ResponseEntity.ok(200);
         } else {
-            return ResponseEntity.status(400).body("Error.");
+             ResponseEntity.status(400).body("Error.");
         }
     }
 
@@ -76,7 +78,17 @@ public class ChatController {
     public ResponseEntity<Object> deleteChat(@PathVariable("chatID") long chatId){
         boolean flag = cs.delete(chatId);
         if(flag){
-            return ResponseEntity.status(200).body("Sucess.");
+            return ResponseEntity.status(200).body("Success.");
+        } else {
+            return ResponseEntity.status(400).body("Error.");
+        }
+    }
+
+    @DeleteMapping("/{chatId}/{user}")
+    public ResponseEntity<Object> deletePersonFromChat(@PathVariable("chatID") long chatId, @PathVariable("user") String user){
+        boolean flag = ppc.delete(chatId, user);
+        if(flag){
+            return ResponseEntity.status(200).body("Success.");
         } else {
             return ResponseEntity.status(400).body("Error.");
         }
