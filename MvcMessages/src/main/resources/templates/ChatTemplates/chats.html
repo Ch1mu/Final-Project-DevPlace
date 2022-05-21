@@ -18,23 +18,38 @@
 <br> <br>
 
 <div class = "container">
+    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+        <div class="form-group row justify-content-center">
+            <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
 
-    <form style="text-align:left" th:object="${newChat}" th:action="@{/chats/new}" method='POST'>
-      <label> <input class="form-control" type='text' name='newChat' id="newChat" placeholder="username"/>
+                    <div class="form-outline">
+                        <form style="text-align:left" th:object="${newChat}" th:action="@{/chats/new}" method='POST'>
+                            <label>
+                                <input class="form-control" type='text' name='newChat' id="newChat" placeholder="username"/>
 
-        <button style="text-align:left" class="btn btn-outline-info" type="submit">
-            New Chat
-        </button></label>
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">
+                                    <a name="submit" type="submit"> New Chat</a>
+                                </button>
+                            </label>
 
-    </form>
-    <form style="text-align:left" th:object="${newGroup}" th:action="@{/chats/newGroup}" method='POST'>
-        <label >  <input class="form-control" type='text' name='newChat' id="newGroup" placeholder="Group Name"/>
+                        </form>
+                    </div>
 
-        <button style="text-align:left" class="btn btn-outline-info" type="submit">
-            New Group
-        </button>
-        </label>
-    </form>
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+                    <div class="form-outline">
+                        <form style="text-align:left" th:object="${newGroup}" th:action="@{/chats/newGroup}" method='POST'>
+                            <label >  <input class="form-control" type='text' name='newChat' id="newGroup" placeholder="Group Name"/>
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">
+                                    <a name="submit" type="submit"> New Group</a>
+                                </button>
+                            </label>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <br> <br>
     <table class ="table table-hover">
@@ -56,7 +71,13 @@
         </div>
         </tbody>
     </table>
+
+        </div>
+    </div>
 </div>
 
 </body>
 </html>
+
+
+
