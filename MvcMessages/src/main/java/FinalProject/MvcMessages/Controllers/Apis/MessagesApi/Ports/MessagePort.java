@@ -46,4 +46,11 @@ public class MessagePort {
     public void delete(long msgId) {
         mA.delete(msgId);
     }
+
+
+
+    //FILTER
+    public ArrayList<Message> filter(String message){
+        return (ArrayList<Message>) mA.getByMessage(message);
+    }
 }
