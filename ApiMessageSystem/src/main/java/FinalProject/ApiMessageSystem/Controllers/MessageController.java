@@ -80,6 +80,17 @@ public class MessageController {
     }
 
 
+    //FILTER BY A MESSAGE.
+    @GetMapping("/filter/{message}")
+    public ResponseEntity<Object> filterByMessage(@PathVariable("message") String message){
+        List<Message> m = ms.filter(message);
+        if (m.isEmpty())
+            return ResponseEntity.status(204).body("Empty.");
+        else
+            return ResponseEntity.status(200).body(m);
+    }
+
+
 
 }
 
