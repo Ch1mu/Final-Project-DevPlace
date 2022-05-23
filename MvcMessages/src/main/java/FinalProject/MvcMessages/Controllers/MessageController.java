@@ -45,7 +45,7 @@ public class MessageController {
     private ChatPort cP;
 
     @GetMapping("/{idChat}")
-    public String getMessagesPerChat(@PathVariable("idChat") long idChat, Model model) throws URISyntaxException, IOException, IOException {
+    public String getMessagesPerChat(@PathVariable("idChat") long idChat, Model model, List<Message> messages) throws URISyntaxException, IOException, IOException {
         boolean flag = false;
         boolean redirect = false;
         ObjectMapper mapper = new ObjectMapper();
@@ -70,10 +70,10 @@ public class MessageController {
 
             Message msg = new Message(pp.getByUsername(userN));
             msg.setUp(pp.getByUsername(userN));
+            if(messages == null)
+            messages=  mapper.convertValue(mP.getByChat(idChat), new TypeReference<List<Message>>() { });
 
-            List<Message> messages=  mapper.convertValue(mP.getByChat(idChat), new TypeReference<List<Message>>() { });
-
-            //Configuracion Translate
+            //Translate Config
             Translate gT = TranslateOptions
                     .newBuilder()
                     .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("APIkey.json")))
