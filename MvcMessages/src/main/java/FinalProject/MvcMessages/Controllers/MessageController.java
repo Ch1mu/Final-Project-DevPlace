@@ -37,16 +37,25 @@ public class MessageController {
     public String getMessagesPerChat(@PathVariable("idChat") long idChat, Model model)
     {
         boolean flag = false;
+        boolean redirect = false;
         ObjectMapper mapper = new ObjectMapper();
         List<PersonPerChat> ppcs=  mapper.convertValue(cP.getAllUsersPerChat(idChat),  new TypeReference<List<PersonPerChat>>() { });
+
         String userN = uS.getSessionUsername();
         for(PersonPerChat ppc: ppcs)
         {
             if(ppc.getUser().getUsername().equals(userN))
             {
                 flag = true;
+                redirect = true;
             }
+
         }
+        if(!redirect)
+        {
+            return "redirect:/chats/all";
+        }
+
         if(flag) {
 
             Message msg = new Message(pp.getByUsername(userN));
