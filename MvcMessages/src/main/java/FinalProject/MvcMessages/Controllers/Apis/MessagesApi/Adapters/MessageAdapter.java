@@ -83,10 +83,5 @@ public class MessageAdapter {
         String result = rt.postForObject(url, entity, String.class); */
     }
 
-    public List<Message> getByMessage(String message){
-        RestTemplate rt = new RestTemplate();
-        ArrayList<Message> messages;
-        messages = rt.getForObject(url+"/filter/"+message, ArrayList.class);
-        return messages;
-    }
+
 }

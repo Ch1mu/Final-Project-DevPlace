@@ -50,7 +50,5 @@ public class MessagePort {
 
 
     //FILTER
-    public ArrayList<Message> filter(String message){
-        return (ArrayList<Message>) mA.getByMessage(message);
-    }
+
 }

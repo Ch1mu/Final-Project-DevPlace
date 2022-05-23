@@ -25,7 +25,9 @@
       <label> <input required style="background-color:#A6CAD7" class="form-control" type='text' id = "filter" name='filter' placeholder="message"/>
         <button  class="btn btn-outline-light" type="submit">
           Filter Message
-        </button></label>
+        </button>
+        <a class="btn btn-outline-light" th:href="@{/messages/{chatId} (chatId = ${chat.idChat})}">Reload</a>
+      </label>
     </form>
   </div>
 </div>

@@ -11,9 +11,6 @@ import java.util.List;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    @Query(value = "SELECT m.id_message, m.content, m.username, m.date FROM message m WHERE m.content LIKE %:message% ", nativeQuery = true)
-    public List<Message> filterMessage(@Param("message") String message);
-
     @Query(value = "SELECT m.id_message, m.content, m.username, m.date FROM message m inner join message_per_chat mpc on mpc.id_chat = :chatId where m.username = :username  GROUP BY m.id_message ORDER BY date asc", nativeQuery = true)
   public List<Message> getByUserAndChat(@Param("username") String username, @Param("chatId") long chatId);
 
