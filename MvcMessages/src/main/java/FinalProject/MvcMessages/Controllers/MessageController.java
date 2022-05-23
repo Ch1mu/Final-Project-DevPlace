@@ -19,6 +19,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.google.auth.oauth2.ServiceAccountCredentials;
+import com.google.cloud.translate.Detection;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -33,9 +42,9 @@ public class MessageController {
     private UserService uS;
     @Autowired
     private ChatPort cP;
+
     @GetMapping("/{idChat}")
-    public String getMessagesPerChat(@PathVariable("idChat") long idChat, Model model)
-    {
+    public String getMessagesPerChat(@PathVariable("idChat") long idChat, Model model) throws URISyntaxException, IOException, IOException {
         boolean flag = false;
         boolean redirect = false;
         ObjectMapper mapper = new ObjectMapper();
@@ -60,13 +69,37 @@ public class MessageController {
 
             Message msg = new Message(pp.getByUsername(userN));
             msg.setUp(pp.getByUsername(userN));
-            try {
 
-                model.addAttribute("messages", mP.getByChat(idChat));
+            List<Message> messages=  mapper.convertValue(mP.getByChat(idChat), new TypeReference<List<Message>>() { });
 
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
+            //Configuracion Translate
+            Translate gT = TranslateOptions
+                    .newBuilder()
+                    .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("APIkey.json")))
+                    .build().getService();
+
+            Translation translation;
+            Detection detection;
+            String languageDetected;
+
+            UserPerson userSession = pp.getByUsername(uS.getSessionUsername());
+            String languageUser = userSession.getLanguage().getCode();
+
+            if (messages!=null) {
+                for (Message m : messages) {
+                    detection = gT.detect(m.getContent());
+                    languageDetected = detection.getLanguage();
+                    if (!languageUser.equals(languageDetected)) {
+                        translation = gT.translate(m.getContent(),
+                                Translate.TranslateOption.sourceLanguage(languageDetected),
+                                Translate.TranslateOption.targetLanguage(languageUser));
+                        m.setContent(translation.getTranslatedText());
+                    }
+                }
             }
+
+            model.addAttribute("messages", messages);
+
             String add ="";
             Chat chat = cP.getById(idChat);
             model.addAttribute("add",  add);
