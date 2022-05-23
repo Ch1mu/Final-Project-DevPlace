@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,7 +16,7 @@ public class ChatService {
     @Autowired
     private ChatRepository cR;
     @Autowired
-    private PersonPerChatRepository ppcR;
+    private PpcService ppcS;
 
     public List<Chat> getAll()
     {
@@ -31,22 +32,24 @@ public class ChatService {
     {
         return cR.getChatPerUser(username);
     }
-    public boolean newChat(UserPerson user1, UserPerson user2)
-    {
 
+    public Chat newChat(ArrayList<UserPerson> upl, String name, boolean isGroup)
+    {
         try
         {
-           Chat c = cR.save(new Chat());
+           Chat c = cR.save(new Chat(name, isGroup));
+            for(UserPerson u: upl)
+            {
+                PersonPerChat mpc1 = new PersonPerChat(c, u);
+                ppcS.save(mpc1);
+            }
 
-            PersonPerChat mpc1 = new PersonPerChat(c, user1 );
-            PersonPerChat mpc2 = new PersonPerChat(c, user2);
-            ppcR.save(mpc1);
-            ppcR.save(mpc2);
-            return  true;
+
+            return  c;
         }
         catch (Exception e)
         {
-            return  false;
+            return  null;
         }
     }
 

@@ -1,0 +1,14 @@
+{
+  "type": "service_account",
+  "project_id": "tokyo-charge-350513",
+  "private_key_id": "8a45b7556726c845c97064110789be67716584ba",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDWw2HUITyvwSOo\nR6WjNK/8sB5lEqqM1TztIWv3Lqcr9ajq2r4vyVTq3KpWijG0b46GpB3U9aUc+C1T\ntXSNtiq6doPSW6rmoePe2S5VI3YFPMRvI3WFewkPFxadQ6MhTEzkrGCXCBkUPcJj\nEOb9QCOzqPp0FVpe4YP+CpG7DDDo1SdfOzXaxuMXcXvN1Yx5DNNlg/uusrvsT3/S\nPndvci+ym30P70TRbNjXiXZaio2DBEAViwP06sCsfZctxEEjUmXZT5MiGtyxGp13\nqYv6aY7QiLgMCQ6v4Si8oSo1RDnkh04b+KmCTuRXd/rfXYrjbKhuagNq2jIAz8UL\noleTCDlXAgMBAAECggEALCpbBHpfVg+EizdMv2724CLB5Ww8yaCSmnt8jgU4mMg4\n2C9q3D3tqiz+FLTvutkUOOkoP2LS9U2uWKAg24HCcL0tp8V1NF/Hkk0cg6K6wyH3\njZl/shcWylUnr+i4dAEScRZn+LdQHQMEZkYUErGtheVyuAuqHYgIEmbPCGXd6wuF\n+mAjh3wsmmb1AAYF4y1mN7qfmcPlqL29mqPWSm+Bc+u5pw72vPIXWCJUdWh/YKWY\nWh4zQ+jAyeCcBDqzvQghnjWsnYgHuqt+jSACC3CueU6aQWAYdp3p6AB3EK04bVz1\n6u5bEpLrZ1qHIi/FO3vGm2zf9EmtkKKva+X0OtFnvQKBgQD+1jmtw9lpPGragBf/\n9vOyfwufn+kvkHEBHzYO+hb8PSiFrOXka+g7Q8AnZG9w1y4TzcRsVeYi/QBU33HP\nGfAEPGPLdatjOLTRLxyBKUlShoNpWjafzLk618Xbo2B196aFB7kq3fIF/wuKPXe3\ndUyk/jTbvukLRCb8V9cS5urJSwKBgQDXvlTG/1Ub5bCzReBPiokrl4DHBzCCkvIo\nRD9yPrZsv3osZTzf9Ob0Zb12qkLfLtL0Ej0JEu6u018/4LDBHccKWs3/7oZDWc/j\nY1nqPfrTxX5qeYPplqq+qlsN0ITgMA3/L/S7VzddNI21lC0MOpBiRk5L8FRhy3X7\nVyP/yuv0pQKBgHJM/fPte0+TVM4KVDlvt6ChEUKYhAvceoMpT6LqE3Mxr0I96aNJ\nrxEd80r35nAzY6xoR6jb4mxhFEv9KNveY2RS/ePdNHE9lwSYX+2i6gtE4B5Z41RL\ni+1TqKA6KGLhIGRcsXYDtLFx0ug/Z7n2t9jtWCIUAA0YlW/rqkEFJ9v/AoGBALpn\nCHinQ7HG0tUSGqye1cWEMQ/FdnRa4j9IOElNRfDPv498KQyXXLTs8rYEhaKvojSf\nTXz5jqAeoL1gNVelksOvkSz/uaGXh7a/sIBi7MTsbj0woHjCZOQ37FQTRbstyeoi\nVSFISd2N+qJYVFOshfNjK2MRUtbsJBP1RnVLrnLBAoGAI12peiErTaqqpW3dLZCq\nq5UaDMbh9iOjbCQ2IiVzqTFD0URAPY3ty9VFjjmUYYxqp/W/KUcmaGy1Yr2fkmA1\nqCU/r7ZIlWSHAJ/cTSsRXi5CGMSP/laOwrDDnt4Key/6fxh3R5kR3WhRQ3X+OkTJ\nXRS7svd4/kgurZHCjskEM2I=\n-----END PRIVATE KEY-----\n",
+  "client_email": "grupo2-devplace@tokyo-charge-350513.iam.gserviceaccount.com",
+  "client_id": "102034111739476468756",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/grupo2-devplace%40tokyo-charge-350513.iam.gserviceaccount.com"
+}
+
+

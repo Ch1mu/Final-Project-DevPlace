@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts}" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Chats</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body style="background-color:gray">
+
+<section th:insert="Layouts/layouts::nav"></section>
+
+<br> <br>
+
+<div class="container">
+    <div class="col-md-6 mb-4">
+        <div class="form-outline">
+        <form style="text-align:left" th:object="${newChat}" th:action="@{/chats/new}" method='POST'>
+            <div class="form-group">
+                <label for="newChat">New Chat
+                <input required style="background-color:#A6CAD7" type="text" name="newChat" class="form-control" id="newChat" aria-describedby="emailHelp" placeholder="username"></label>
+            </div>
+            <button type="submit" class="btn btn-dark">New Chat</button>
+        </form>
+            </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="form-outline">
+
+        <form style="text-align:left" th:object="${newGroup}" th:action="@{/chats/newGroup}" method='POST'>
+            <div class="form-group">
+                <label for="newGroup">New Group
+                <input required style="background-color:#A6CAD7" type="text" name="newGroup" class="form-control" id="newGroup" aria-describedby="emailHelp" placeholder="Group Name"></label>
+            </div>
+            <button type="submit" class="btn btn-dark"> New Group</button>
+        </form>
+    </div>
+    </div>
+
+        <br> <br>
+
+    <section th:insert="Layouts/layouts::alert"></section>
+        <div th:each="chat: ${chats}">
+
+                <div class="col-md-10 mb-4" style="text-align:center; margin-left:10cm; ">
+
+                    <a  class="alert alert-primary" role="button" style="z-index:0; position: absolute; top: 0;  left: 8px;
+height: 45px; width: 353px;" th:text = ${chat.name} th:href="@{/messages/{chatId} (chatId = ${chat.idChat}) }"> </a>
+               <a class="btn btn-outline-light" th:href="@{/chats/delete/{chatId} (chatId = ${chat.idChat})}">Delete</a>
+
+
+
+
+</div>
+
+    </div>
+</div>
+</body>
+</html>
+
+
+

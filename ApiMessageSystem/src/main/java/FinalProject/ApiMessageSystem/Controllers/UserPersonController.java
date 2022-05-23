@@ -18,14 +18,26 @@ public class UserPersonController {
     @Autowired
     PersonService ps;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<Object> getAll(){
         List<UserPerson> userPersons = ps.getAll();
         if(userPersons.isEmpty()){
-            return ResponseEntity.status(204).body(userPersons);
+            return ResponseEntity.status(204).body("No user found");
         }
         else {
             return ResponseEntity.status(200).body(userPersons);
+        }
+    }
+    @GetMapping("/dni/{dni}")
+    public ResponseEntity<Object> getByDni(@PathVariable("dni") String dni)
+    {
+        try{
+            UserPerson uP = ps.getByDni(dni);
+            return ResponseEntity.status(200).body(uP);
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(204).body(null);
         }
     }
 
@@ -33,7 +45,7 @@ public class UserPersonController {
     public ResponseEntity<Object> getByUsername(@PathVariable("username") String username){
         UserPerson up = ps.getByUsername(username);
         if (up == null)
-            return ResponseEntity.status(204).body(up);
+            return ResponseEntity.status(204).body("No user found");
         else
             return ResponseEntity.status(200).body(up);
     }
@@ -49,10 +61,10 @@ public class UserPersonController {
     }
 
     @PutMapping("/update/{username}")
-    public ResponseEntity<Object> update(@RequestBody @Valid UserPerson up, @PathVariable("dni") String username) {
+    public ResponseEntity<Object> update(@RequestBody @Valid UserPerson up, @PathVariable("username") String username) {
         UserPerson person = ps.update(up, username);
         if (person == null)
-            return ResponseEntity.status(204).body(person);
+            return ResponseEntity.status(204).body("No user found");
         else
             return ResponseEntity.status(200).body(person);
 
@@ -65,7 +77,7 @@ public class UserPersonController {
             if(flag){
                 return ResponseEntity.status(200).body("Success.");
             } else {
-                return ResponseEntity.status(204).body("No username found with the specified DNI.");
+                return ResponseEntity.status(204).body("No username found with the specified Username.");
             }
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error.");

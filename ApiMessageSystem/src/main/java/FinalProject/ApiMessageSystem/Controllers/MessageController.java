@@ -15,7 +15,7 @@ public class MessageController {
     @Autowired
     MessageService ms;
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<Object> getAll() {
         try {
             List<Message> messages = ms.getAll();
@@ -51,15 +51,15 @@ public class MessageController {
 
     @PostMapping("/save/{chatId}")
     public ResponseEntity<Object> save(@PathVariable("chatId") long chatId, @RequestBody Message msg) {
-        boolean flag = ms.save(msg, chatId);
-        if (flag) {
-            return ResponseEntity.status(200).body("Sucess.");
+         Message msge = ms.save(msg, chatId);
+        if (msge != null) {
+            return ResponseEntity.status(200).body(msge);
         } else {
             return ResponseEntity.status(500).body("Error.");
         }
     }
 
-    @DeleteMapping("/{idmsg}")
+    @DeleteMapping("/{id_msg}")
     public ResponseEntity<Object> deleteMessage(@PathVariable("id_msg") long id_msg) {
         boolean flag = ms.delete(id_msg);
         if (!flag) {

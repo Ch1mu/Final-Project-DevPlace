@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts}">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+</head>
+<body style="background-color:gray">
+<section th:insert="Layouts/layouts::nav"></section>
+
+
+<br> <br>
+<div class = "container">
+
+<div th:if="${chat.isGroup}">
+  <section th:insert="Layouts/layouts::alert"></section>
+  <form  style="text-align:right" th:object="${add}" th:action="@{/chats/addPerson/{chatId} (chatId = ${chat.idChat})}" method='POST'>
+    <label> <input required style="background-color:#A6CAD7" class="form-control" type='text' name='add' id="add" placeholder="username"/>
+      <button  class="btn btn-outline-light" type="submit">
+        Add User
+      </button></label>
+  </form>
+  </div>
+  <div class="card bg-dark text-white" style="border-radius: 1rem;">
+  <table class ="table table-hover">
+
+    <thead>
+    <tr>
+      <th>Thread </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="message: ${messages}">
+
+      <td>
+        <b><label  th:text="${message.up.username}"></label></b>
+        <label> at </label>
+        <label th:text="${message.date}"></label><br>
+        <label th:text="${message.content}"></label>
+
+      </td>
+
+
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+  <br>
+  <form th:object="${newMsg}" th:action="@{/messages/save/{id} (id = ${chat.idChat})}" method='POST'>
+    <label style="text-align:center; margin-left:12cm;">
+      <input required style="background-color:#A6CAD7" class="form-control" type='text' name='content' id="*{content}" /> </label>
+  <label><button class="btn btn-outline-light" type="submit">
+      Send
+    </button>
+  </label>
+    <br>
+  </form>
+  </div>
+</div>
+</body>
+</html>
