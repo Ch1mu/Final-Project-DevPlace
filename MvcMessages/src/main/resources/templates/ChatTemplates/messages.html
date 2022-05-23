@@ -11,23 +11,23 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 </head>
-<body>
+<body style="background-color:gray">
 <section th:insert="Layouts/layouts::nav"></section>
 
 
 <br> <br>
 <div class = "container">
-  <div class="card bg-dark text-white" style="border-radius: 1rem;">
+
 <div th:if="${chat.isGroup}">
 
   <form  style="text-align:right" th:object="${add}" th:action="@{/chats/addPerson/{chatId} (chatId = ${chat.idChat})}" method='POST'>
-    <label > <input class="form-control" type='text' name='add' id="add" placeholder="username"/>
-      <button style="text-align:left" class="btn btn-outline-info" type="submit">
+    <label> <input required style="background-color:#A6CAD7" class="form-control" type='text' name='add' id="add" placeholder="username"/>
+      <button  class="btn btn-outline-light" type="submit">
         Add User
       </button></label>
   </form>
-
   </div>
+  <div class="card bg-dark text-white" style="border-radius: 1rem;">
   <table class ="table table-hover">
 
     <thead>
@@ -52,12 +52,15 @@
 
     </tbody>
   </table>
-
+</div>
+  <br>
   <form th:object="${newMsg}" th:action="@{/messages/save/{id} (id = ${chat.idChat})}" method='POST'>
-    <input class="form-control" type='text' name='content' id="*{content}" />
-    <button type="submit">
+    <label style="text-align:center; margin-left:12cm;">
+      <input required style="background-color:#A6CAD7" class="form-control" type='text' name='content' id="*{content}" /> </label>
+  <label><button class="btn btn-outline-light" type="submit">
       Send
     </button>
+  </label>
     <br>
   </form>
   </div>
