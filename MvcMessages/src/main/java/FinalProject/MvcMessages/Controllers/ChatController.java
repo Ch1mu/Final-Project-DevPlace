@@ -1,9 +1,11 @@
 package FinalProject.MvcMessages.Controllers;
 
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.ChatPort;
+import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.MessagePort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.PersonPort;
 import FinalProject.MvcMessages.Controllers.Services.UserService;
 import FinalProject.MvcMessages.Models.Chat;
+import FinalProject.MvcMessages.Models.Message;
 import FinalProject.MvcMessages.Models.PersonPerChat;
 import FinalProject.MvcMessages.Models.UserPerson;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -16,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,8 @@ public class ChatController {
     @Autowired
     private ChatPort cP;
 
+    @Autowired
+    private MessagePort mP;
 
     @Autowired
     private UserService uS;
@@ -46,7 +51,7 @@ public class ChatController {
     }
 
     @PostMapping("/new")
-    public String newChat(@ModelAttribute("newChat") String user) {
+    public String newChat(@ModelAttribute("newChat") String user, RedirectAttributes redirect) {
         boolean flag = true;
         ArrayList<UserPerson> ups = new ArrayList<>();
         String username = uS.getSessionUsername();//get session username
@@ -71,6 +76,7 @@ public class ChatController {
                     List<PersonPerChat> ppc = mapper.convertValue( cP.getAllUsersPerChat(chat.getIdChat()),new TypeReference<List<PersonPerChat>>() {});//Get All Chats
                     for(PersonPerChat p : ppc) {
                         if (p.getUser().getUsername().equals(up.getUsername())) { //if there already is a chat with that person
+                            redirect.addFlashAttribute("message", "Error. Chat already Exists");
                             flag = false;
                         }
                     }
@@ -79,6 +85,7 @@ public class ChatController {
             if (flag) {
                 ups.add(up);
                 cP.newChat(ups, username + " & " + up.getUsername());
+                redirect.addFlashAttribute("message", "Chat Created Successfully");
             }
 
         }
@@ -88,22 +95,24 @@ public class ChatController {
     }
 
     @PostMapping("/newGroup")
-    public String newGroup(@ModelAttribute("newChat") String groupName) {
+    public String newGroup(@ModelAttribute("newGroup") String groupName, RedirectAttributes redirect) {
         ArrayList<UserPerson> ups = new ArrayList<>();
         String username = uS.getSessionUsername();
         ups.add(pP.getByUsername(username));
         cP.newGroup(ups, groupName);
+        redirect.addFlashAttribute("message", "Group Created Successfully");
         return "redirect:/chats/all/";
     }
 
     @GetMapping("/delete/{chatId}")
-    public String deletePersonFromChat(@PathVariable("chatId") long chatId) {
+    public String deletePersonFromChat(@PathVariable("chatId") long chatId, RedirectAttributes redirect) {
         cP.delete(chatId, uS.getSessionUsername());
+        redirect.addFlashAttribute("message", "Chat Deleted.");
         return "redirect:/chats/all";
     }
 
     @PostMapping("/addPerson/{chatId}")
-    public String addPersonToGroup(@ModelAttribute("add") String username, @PathVariable("chatId") long chatId) {
+    public String addPersonToGroup(@ModelAttribute("add") String username, @PathVariable("chatId") long chatId, RedirectAttributes redirect) {
 
         boolean flag = true;
         UserPerson up = pP.getByUsername(username);
@@ -117,18 +126,29 @@ public class ChatController {
             for(PersonPerChat p : ppc) {
 
                 if(p.getUser().getUsername().equals(username))
+                {
+                    redirect.addFlashAttribute("message", "User is already in this chat");
                     flag = false;
+                }
+
 
             }
 
             if (flag) {
-
+                redirect.addFlashAttribute("message", "User added Successfully");
                 cP.addPersonToGroup(up, chatId);
             }
 
 
                 }
         return "redirect:/messages/" +chatId;
-            }
-        }
+    }
+
+
+
+
+
+
+}
+
 

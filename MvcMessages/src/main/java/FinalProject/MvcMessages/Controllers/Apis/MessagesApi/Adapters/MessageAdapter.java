@@ -82,4 +82,6 @@ public class MessageAdapter {
         HttpEntity<Message> entity = new HttpEntity<Message>(es,headers);
         String result = rt.postForObject(url, entity, String.class); */
     }
+
+
 }

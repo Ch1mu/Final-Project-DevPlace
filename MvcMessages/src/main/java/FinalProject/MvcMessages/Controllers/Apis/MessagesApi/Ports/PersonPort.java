@@ -32,6 +32,10 @@ public class PersonPort {
     {
         return pA.getByUsername(user);
     }
+    public UserPerson getByDni(String dni)
+    {
+        return pA.getByDni(dni);
+    }
 
     //UPDATE
 

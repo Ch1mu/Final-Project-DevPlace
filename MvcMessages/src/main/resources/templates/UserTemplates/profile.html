@@ -23,13 +23,13 @@ cursor: pointer;
 }
 </style>
 </head>
-<body >
+<body style="background-color:gray">
 <section th:insert="Layouts/layouts::nav"></section>
 <div th:object="${user}" style="text-align:center">
 
 
-    <section class="vh-100" style="background-color: #f4f5f7;">
-        <div class="container py-5 h-100">
+
+        <div class="container py-5 h-100" style="margin-top:3cm">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-lg-6 mb-4 mb-lg-0">
                     <div class="card bg-dark text-white" style="border-radius: .5rem;">
@@ -39,10 +39,11 @@ cursor: pointer;
                                  style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                                      alt="Avatar" class="img-fluid my-5" style="width: 50px;" />
-                                <h4><label th:text="${user.firstName}"></h4><h4><label th:text="${user.lastName}"></h4>
+                                <h4><label th:text="${user.firstName}"></label></h4><h4><label th:text="${user.lastName}"></label></h4>
                                 <div class="form-group row justify-content-center">
                                     <div class="mt-4 pt-2">
-                                        <button type="button" class="btn btn-outline-light"> <a th:href="@{/user/update/{username} (username = ${user.username})}"> Update Info </a> </button>
+
+                                        <a class="btn btn-outline-light" th:href="@{/user/update/{username} (username = ${user.username})}"> Update Info </a>
                                     </div>
                                 </div>
                                 <i class="far fa-edit mb-5"></i>
@@ -65,7 +66,7 @@ cursor: pointer;
                                             <p class="text-muted"><label th:text="${user.language.name}"></label></p>
                                         </div>
                                     </div>
-
+                                    <section th:insert="Layouts/layouts::alert"></section>
                                 </div>
                             </div>
                         </div>
@@ -73,6 +74,7 @@ cursor: pointer;
                 </div>
             </div>
         </div>
+
     </section>
 
 </div>

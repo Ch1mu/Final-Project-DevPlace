@@ -46,4 +46,9 @@ public class MessagePort {
     public void delete(long msgId) {
         mA.delete(msgId);
     }
+
+
+
+    //FILTER
+
 }

@@ -12,7 +12,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
 </head>
-<body>
+<body style="background-color:gray">
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
         <div class="row justify-content-center align-items-center h-100">
@@ -43,7 +43,7 @@
                                     <div class="col-md-6 mb-4 d-flex align-items-center">
 
                                         <div class="form-outline datepicker w-100">
-                                            <input type="text" class="form-control form-control-lg" id="dni" name="dni" th:field="*{dni}" required />
+                                            <input readonly="readonly" type="text" class="form-control form-control-lg" id="dni" name="dni" th:field="*{dni}" required />
                                             <label for="dni" class="form-label">DNI</label>
                                         </div>
 

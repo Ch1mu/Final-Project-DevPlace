@@ -28,6 +28,18 @@ public class UserPersonController {
             return ResponseEntity.status(200).body(userPersons);
         }
     }
+    @GetMapping("/dni/{dni}")
+    public ResponseEntity<Object> getByDni(@PathVariable("dni") String dni)
+    {
+        try{
+            UserPerson uP = ps.getByDni(dni);
+            return ResponseEntity.status(200).body(uP);
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(204).body(null);
+        }
+    }
 
     @GetMapping("/{username}")
     public ResponseEntity<Object> getByUsername(@PathVariable("username") String username){
