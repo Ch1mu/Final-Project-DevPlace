@@ -26,6 +26,13 @@ public class PersonAdapter {
         user = rt.getForObject(url + username, UserPerson.class);
         return user;
     }
+    public UserPerson getByDni(String dni){
+
+        RestTemplate rt = new RestTemplate();
+        UserPerson user;
+        user = rt.getForObject(url + "dni/"+dni, UserPerson.class);
+        return user;
+    }
 
     public void delete(String username) {
 
