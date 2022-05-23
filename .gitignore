@@ -1,2 +1,4 @@
 
-*.json
+MvcMessages/APIkey.json
+MvcMessages/src/main/java/FinalProject/MvcMessages/Controllers/Apis/GoogleApi/googleConfig.java
+
