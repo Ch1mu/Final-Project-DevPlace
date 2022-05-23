@@ -11,53 +11,58 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
 </head>
-<body>
+<body style="background-color:gray">
 
 <section th:insert="Layouts/layouts::nav"></section>
 
 <br> <br>
 
-
-    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+<div class="container">
+    <div class="col-md-6 mb-4">
+        <div class="form-outline">
         <form style="text-align:left" th:object="${newChat}" th:action="@{/chats/new}" method='POST'>
             <div class="form-group">
-                <label for="newChat">New Chat</label>
-                <input type="text" name="newChat" class="form-control" id="newChat" aria-describedby="emailHelp" placeholder="username">
+                <label for="newChat">New Chat
+                <input required style="background-color:#A6CAD7" type="text" name="newChat" class="form-control" id="newChat" aria-describedby="emailHelp" placeholder="username"></label>
             </div>
-            <button type="submit" class="btn btn-primary"> <a name="submit" type="submit"> New Chat</a></button>
+            <button type="submit" class="btn btn-dark">New Chat</button>
         </form>
+            </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="form-outline">
 
         <form style="text-align:left" th:object="${newGroup}" th:action="@{/chats/newGroup}" method='POST'>
             <div class="form-group">
-                <label for="newGroup">New Group</label>
-                <input type="text" name="newGroup" class="form-control" id="newGroup" aria-describedby="emailHelp" placeholder="Group Name">
+                <label for="newGroup">New Group
+                <input required style="background-color:#A6CAD7" type="text" name="newGroup" class="form-control" id="newGroup" aria-describedby="emailHelp" placeholder="Group Name"></label>
             </div>
-            <button type="submit" class="btn btn-primary">  <a name="submit" type="submit"> New Group</a></button>
+            <button type="submit" class="btn btn-dark"> New Group</button>
         </form>
-
+    </div>
+    </div>
 
         <br> <br>
-        <table class ="table table-hover">
 
-        <thead style="text-align:center">
-        <tr>
-            <th>CHATS </th>
-            <th></th>
 
-        </tr>
-        </thead>
-        <tbody>
         <div th:each="chat: ${chats}">
-            <tr>
-                <td style="text-align:center" class="alert alert-primary"><a style="font-size:17px" th:text = ${chat.name} th:href="@{/messages/{chatId} (chatId = ${chat.idChat}) }"> </a></td>
-                <td><a th:href="@{/chats/delete/{chatId} (chatId = ${chat.idChat})}"><button >Delete</button></a></td>
-            </tr>
 
-        </div>
-        </tbody>
-        </table>
+
+
+
+                <div class="col-md-10 mb-4" style="text-align:center; margin-left:10cm; ">
+
+                    <a  class="alert alert-primary" role="button" style="z-index:0; position: absolute; top: 0;  left: 8px;
+height: 45px; width: 353px;" th:text = ${chat.name} th:href="@{/messages/{chatId} (chatId = ${chat.idChat}) }"> </a>
+               <a class="btn btn-outline-light" th:href="@{/chats/delete/{chatId} (chatId = ${chat.idChat})}">Delete</a>
+
+
+
+
+</div>
 
     </div>
+</div>
 </body>
 </html>
 
