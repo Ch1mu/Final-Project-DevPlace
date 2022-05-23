@@ -16,11 +16,25 @@
 
 
 <br> <br>
+
+<div class = "container">
+
+  <div>
+
+    <form  style="text-align:right" th:object="${filter}" th:action="@{/messages/filter/{chatId} (chatId = ${chat.idChat})}" method='POST'>
+      <label> <input required style="background-color:#A6CAD7" class="form-control" type='text' id = "filter" name='filter' placeholder="message"/>
+        <button  class="btn btn-outline-light" type="submit">
+          Filter Message
+        </button></label>
+    </form>
+  </div>
+</div>
+
 <div class = "container">
 
 <div th:if="${chat.isGroup}">
 
-  <form  style="text-align:right" th:object="${add}" th:action="@{/chats/addPerson/{chatId} (chatId = ${chat.idChat})}" method='POST'>
+  <form  style="text-align:left" th:object="${messages}" th:action="@{/chats/addPerson/{chatId} (chatId = ${chat.idChat})}" method='POST'>
     <label> <input required style="background-color:#A6CAD7" class="form-control" type='text' name='add' id="add" placeholder="username"/>
       <button  class="btn btn-outline-light" type="submit">
         Add User

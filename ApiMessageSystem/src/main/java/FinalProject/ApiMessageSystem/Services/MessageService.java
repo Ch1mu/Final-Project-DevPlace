@@ -82,4 +82,11 @@ public class MessageService {
 
     }
 
+    public List<Message> filter (String message){
+        return mR.filterMessage(message);
+    }
+
+
+
+
 }
