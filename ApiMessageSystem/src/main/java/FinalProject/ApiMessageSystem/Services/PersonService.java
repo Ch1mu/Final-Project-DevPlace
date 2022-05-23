@@ -28,7 +28,10 @@ public class PersonService {
             return pR.getByUsername(username);
 
     }
-
+    public UserPerson getByDni(String dni)
+    {
+        return pR.getByDni(dni);
+    }
     public boolean save(UserPerson uP)
     {
         try
