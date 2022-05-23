@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 
 @Data
@@ -18,13 +19,14 @@ public class Message {
     private long idMessage;
     @NotEmpty
     private String content;
-    private Date date = new Date(System.currentTimeMillis());
+    private Timestamp date =  new java.sql.Timestamp(new java.util.Date().getTime());
 
 
     private UserPerson up;
 
     public Message(String content)
     {
+
         this.content = content;
     }
 
