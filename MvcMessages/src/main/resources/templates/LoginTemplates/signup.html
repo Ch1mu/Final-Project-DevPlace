@@ -12,7 +12,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
 </head>
-<body>
+<body style="background-color:gray">
 
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
@@ -21,14 +21,14 @@
                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                     <div class="card-body p-4 p-md-5">
-                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Sing Up</h3>
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Sign Up</h3>
                         <form th:action="@{/signup}" th:object="${user}"  method="post">
 
                             <div class="row">
                                 <div class="col-md-6 mb-4">
 
                                     <div class="form-outline">
-                                        <input type="text" id="firstName" name="firstName" th:field="*{firstName}" required class="form-control form-control-lg" />
+                                        <input style="background-color:#A6CAD7" type="text" id="firstName" name="firstName" th:field="*{firstName}" required class="form-control form-control-lg" />
                                         <label class="form-label" for="firstName">First Name</label>
                                     </div>
 
@@ -36,7 +36,7 @@
                                 <div class="col-md-6 mb-4">
 
                                     <div class="form-outline">
-                                        <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required class="form-control form-control-lg" />
+                                        <input style="background-color:#A6CAD7" type="text" id="lastName" name="lastName" th:field="*{lastName}" required class="form-control form-control-lg" />
                                         <label class="form-label" for="lastName">Last Name</label>
                                     </div>
 
@@ -44,7 +44,7 @@
                                 <div class="col-md-6 mb-4 d-flex align-items-center">
 
                                     <div class="form-outline datepicker w-100">
-                                        <input type="text" class="form-control form-control-lg" id="dni" name="dni" th:field="*{dni}" required />
+                                        <input style="background-color:#A6CAD7" type="text" class="form-control form-control-lg" id="dni" name="dni" th:field="*{dni}" required />
                                         <label for="dni" class="form-label">DNI</label>
                                     </div>
 
@@ -63,7 +63,7 @@
                                 <div class="col-md-6 mb-4 pb-2">
 
                                     <div class="form-outline">
-                                        <input type="text" name="username" th:field="*{username}"required id="emailAddress" class="form-control form-control-lg" />
+                                        <input  style="background-color:#A6CAD7" type="text" name="username" th:field="*{username}"required id="emailAddress" class="form-control form-control-lg" />
                                         <label class="form-label" for="emailAddress">Username</label>
                                     </div>
 
@@ -71,7 +71,7 @@
                                 <div class="col-md-6 mb-4 pb-2">
 
                                     <div class="form-outline">
-                                        <input type="password" name="password" th:field="*{password}" required id="password" class="form-control form-control-lg" />
+                                        <input style="background-color:#A6CAD7" type="password" name="password" th:field="*{password}" required id="password" class="form-control form-control-lg" />
                                         <label class="form-label" for="password">Password</label>
                                     </div>
 
@@ -81,7 +81,7 @@
                             <div class="row">
                                 <div class="col-12">
 
-                                    <select class="select form-control-lg" th:field="*{languageName}" required>
+                                    <select style="background-color:#A6CAD7" class="select form-control-lg" th:field="*{languageName}" required>
                                         <div  th:each="lg: ${languages}">
                                             <option name="languageName" th:value="${lg.name}"  th:text="${lg.name}"></option>
                                         </div>

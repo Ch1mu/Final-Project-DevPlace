@@ -61,6 +61,7 @@ public class MessageController {
             Message msg = new Message(pp.getByUsername(userN));
             msg.setUp(pp.getByUsername(userN));
             try {
+
                 model.addAttribute("messages", mP.getByChat(idChat));
 
             } catch (URISyntaxException e) {

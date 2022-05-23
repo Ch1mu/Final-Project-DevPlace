@@ -88,10 +88,11 @@ public class ChatController {
     }
 
     @PostMapping("/newGroup")
-    public String newGroup(@ModelAttribute("newChat") String groupName) {
+    public String newGroup(@ModelAttribute("newGroup") String groupName) {
         ArrayList<UserPerson> ups = new ArrayList<>();
         String username = uS.getSessionUsername();
         ups.add(pP.getByUsername(username));
+
         cP.newGroup(ups, groupName);
         return "redirect:/chats/all/";
     }
