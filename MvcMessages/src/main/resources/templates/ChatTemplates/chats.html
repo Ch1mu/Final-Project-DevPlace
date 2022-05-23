@@ -2,7 +2,7 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts}">
+      layout:decorate="~{layouts}" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Chats</title>
@@ -17,27 +17,27 @@
 
 <br> <br>
 
-<div class = "container">
 
-    <form style="text-align:left" th:object="${newChat}" th:action="@{/chats/new}" method='POST'>
-      <label> <input class="form-control" type='text' name='newChat' id="newChat" placeholder="username"/>
+    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+        <form style="text-align:left" th:object="${newChat}" th:action="@{/chats/new}" method='POST'>
+            <div class="form-group">
+                <label for="newChat">New Chat</label>
+                <input type="text" name="newChat" class="form-control" id="newChat" aria-describedby="emailHelp" placeholder="username">
+            </div>
+            <button type="submit" class="btn btn-primary"> <a name="submit" type="submit"> New Chat</a></button>
+        </form>
 
-        <button style="text-align:left" class="btn btn-outline-info" type="submit">
-            New Chat
-        </button></label>
+        <form style="text-align:left" th:object="${newGroup}" th:action="@{/chats/newGroup}" method='POST'>
+            <div class="form-group">
+                <label for="newGroup">New Group</label>
+                <input type="text" name="newGroup" class="form-control" id="newGroup" aria-describedby="emailHelp" placeholder="Group Name">
+            </div>
+            <button type="submit" class="btn btn-primary">  <a name="submit" type="submit"> New Group</a></button>
+        </form>
 
-    </form>
-    <form style="text-align:left" th:object="${newGroup}" th:action="@{/chats/newGroup}" method='POST'>
-        <label >  <input class="form-control" type='text' name='newChat' id="newGroup" placeholder="Group Name"/>
 
-        <button style="text-align:left" class="btn btn-outline-info" type="submit">
-            New Group
-        </button>
-        </label>
-    </form>
-
-    <br> <br>
-    <table class ="table table-hover">
+        <br> <br>
+        <table class ="table table-hover">
 
         <thead style="text-align:center">
         <tr>
@@ -55,8 +55,11 @@
 
         </div>
         </tbody>
-    </table>
-</div>
+        </table>
 
+    </div>
 </body>
 </html>
+
+
+

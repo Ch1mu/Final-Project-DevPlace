@@ -17,7 +17,7 @@
 
 <br> <br>
 <div class = "container">
-
+  <div class="card bg-dark text-white" style="border-radius: 1rem;">
 <div th:if="${chat.isGroup}">
 
   <form  style="text-align:right" th:object="${add}" th:action="@{/chats/addPerson/{chatId} (chatId = ${chat.idChat})}" method='POST'>
@@ -60,7 +60,7 @@
     </button>
     <br>
   </form>
-
+  </div>
 </div>
 </body>
 </html>
