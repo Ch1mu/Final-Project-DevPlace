@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/user")
@@ -54,10 +55,11 @@ public class UserController {
     }
 
     @PostMapping("/update/{username}")
-    public String updateUser(@ModelAttribute("user") UserAdapter uA,@PathVariable("username")String username){
+    public String updateUser(@ModelAttribute("user") UserAdapter uA, @PathVariable("username")String username, RedirectAttributes redirect){
         uA.setLanguage(lp.getByName(uA.getLanguageName()));
         uS.update(uA);
-        return "UserTemplates/profile";
+        redirect.addFlashAttribute("message", "User Updated");
+        return "redirect:/user/profile";
     }
 
 }

@@ -35,7 +35,11 @@
     </nav>
 </header>
 
-
+<div th:fragment="alert" class="container">
+    <div th:classappend="'alert-' + (${class != null} ? ${class} : info)" th:if="${message != null}"
+         th:text="${message}" class="alert">
+    </div>
+</div>
 </body>
 </html>
 

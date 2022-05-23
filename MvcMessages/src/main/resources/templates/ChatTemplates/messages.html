@@ -33,8 +33,8 @@
 <div class = "container">
 
 <div th:if="${chat.isGroup}">
-
-  <form  style="text-align:left" th:object="${messages}" th:action="@{/chats/addPerson/{chatId} (chatId = ${chat.idChat})}" method='POST'>
+  <section th:insert="Layouts/layouts::alert"></section>
+  <form  style="text-align:right" th:object="${add}" th:action="@{/chats/addPerson/{chatId} (chatId = ${chat.idChat})}" method='POST'>
     <label> <input required style="background-color:#A6CAD7" class="form-control" type='text' name='add' id="add" placeholder="username"/>
       <button  class="btn btn-outline-light" type="submit">
         Add User
