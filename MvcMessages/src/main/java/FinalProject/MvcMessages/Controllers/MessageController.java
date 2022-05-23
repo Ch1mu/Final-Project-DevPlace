@@ -1,5 +1,6 @@
 package FinalProject.MvcMessages.Controllers;
 
+import FinalProject.MvcMessages.Controllers.Apis.GoogleApi.googleConfig;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.ChatPort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.MessagePort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.PersonPort;
@@ -50,7 +51,7 @@ public class MessageController {
         boolean redirect = false;
         ObjectMapper mapper = new ObjectMapper();
         List<PersonPerChat> ppcs=  mapper.convertValue(cP.getAllUsersPerChat(idChat),  new TypeReference<List<PersonPerChat>>() { });
-
+        List<Message> messages=  mapper.convertValue(mP.getByChat(idChat), new TypeReference<List<Message>>() { });
         String userN = uS.getSessionUsername();
         for(PersonPerChat ppc: ppcs)
         {
@@ -70,34 +71,8 @@ public class MessageController {
 
             Message msg = new Message(pp.getByUsername(userN));
             msg.setUp(pp.getByUsername(userN));
-
-            List<Message> messages=  mapper.convertValue(mP.getByChat(idChat), new TypeReference<List<Message>>() { });
-
-            //Translate Config
-            Translate gT = TranslateOptions
-                    .newBuilder()
-                    .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("APIkey.json")))
-                    .build().getService();
-
-            Translation translation;
-            Detection detection;
-            String languageDetected;
-
-            UserPerson userSession = pp.getByUsername(uS.getSessionUsername());
-            String languageUser = userSession.getLanguage().getCode();
-
-            if (messages!=null) {
-                for (Message m : messages) {
-                    detection = gT.detect(m.getContent());
-                    languageDetected = detection.getLanguage();
-                    if (!languageUser.equals(languageDetected)) {
-                        translation = gT.translate(m.getContent(),
-                                Translate.TranslateOption.sourceLanguage(languageDetected),
-                                Translate.TranslateOption.targetLanguage(languageUser));
-                        m.setContent(translation.getTranslatedText());
-                    }
-                }
-            }
+            googleConfig gC = new googleConfig();
+           messages= gC.translate(messages);
 
             model.addAttribute("messages", messages);
 
@@ -133,7 +108,7 @@ public class MessageController {
         boolean redirect = false;
         ObjectMapper mapper = new ObjectMapper();
         List<PersonPerChat> ppcs=  mapper.convertValue(cP.getAllUsersPerChat(chatId),  new TypeReference<List<PersonPerChat>>() { });
-
+        List<Message> messages=  mapper.convertValue(mP.getByChat(chatId), new TypeReference<List<Message>>() { });
         String userN = uS.getSessionUsername();
         for(PersonPerChat ppc: ppcs)
         {
@@ -153,34 +128,8 @@ public class MessageController {
 
             Message msg = new Message(pp.getByUsername(userN));
             msg.setUp(pp.getByUsername(userN));
-
-            List<Message> messages=  mapper.convertValue(mP.getByChat(chatId), new TypeReference<List<Message>>() { });
-
-            //Translate Config
-            Translate gT = TranslateOptions
-                    .newBuilder()
-                    .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("APIkey.json")))
-                    .build().getService();
-
-            Translation translation;
-            Detection detection;
-            String languageDetected;
-
-            UserPerson userSession = pp.getByUsername(uS.getSessionUsername());
-            String languageUser = userSession.getLanguage().getCode();
-
-            if (messages!=null) {
-                for (Message m : messages) {
-                    detection = gT.detect(m.getContent());
-                    languageDetected = detection.getLanguage();
-                    if (!languageUser.equals(languageDetected)) {
-                        translation = gT.translate(m.getContent(),
-                                Translate.TranslateOption.sourceLanguage(languageDetected),
-                                Translate.TranslateOption.targetLanguage(languageUser));
-                        m.setContent(translation.getTranslatedText());
-                    }
-                }
-            }
+            googleConfig gC = new googleConfig();
+           messages= gC.translate(messages);
             ArrayList<Message> fMsg = new ArrayList<>();
 
             for(Message m : messages)

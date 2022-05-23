@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Service
 public class PersonPort {
     @Autowired
-    PersonAdapter pA;
+    PersonAdapter pA = new PersonAdapter();
 
     public void save(UserPerson user)
     {
