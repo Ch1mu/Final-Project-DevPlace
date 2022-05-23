@@ -35,7 +35,7 @@ public class googleConfig {
     private Translate set() throws IOException {
    return TranslateOptions
             .newBuilder()
-            .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("APIkey.json")))
+            .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("tokyo-charge-350513.json")))
             .build().getService();
   }
 
