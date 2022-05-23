@@ -4,6 +4,7 @@ import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.ChatPort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.MessagePort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.PersonPort;
 import FinalProject.MvcMessages.Controllers.Services.UserService;
+import FinalProject.MvcMessages.Models.Chat;
 import FinalProject.MvcMessages.Models.Message;
 import FinalProject.MvcMessages.Models.PersonPerChat;
 import FinalProject.MvcMessages.Models.UserPerson;
@@ -36,27 +37,40 @@ public class MessageController {
     public String getMessagesPerChat(@PathVariable("idChat") long idChat, Model model)
     {
         boolean flag = false;
+        boolean redirect = false;
         ObjectMapper mapper = new ObjectMapper();
         List<PersonPerChat> ppcs=  mapper.convertValue(cP.getAllUsersPerChat(idChat),  new TypeReference<List<PersonPerChat>>() { });
+
         String userN = uS.getSessionUsername();
         for(PersonPerChat ppc: ppcs)
         {
             if(ppc.getUser().getUsername().equals(userN))
             {
                 flag = true;
+                redirect = true;
             }
+
         }
+        if(!redirect)
+        {
+            return "redirect:/chats/all";
+        }
+
         if(flag) {
 
             Message msg = new Message(pp.getByUsername(userN));
             msg.setUp(pp.getByUsername(userN));
             try {
                 model.addAttribute("messages", mP.getByChat(idChat));
+
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
+            String add ="";
+            Chat chat = cP.getById(idChat);
+            model.addAttribute("add",  add);
             model.addAttribute("newMsg", msg);
-            model.addAttribute("chatId", idChat);
+            model.addAttribute("chat", chat);
             model.addAttribute("user", userN);
             return "ChatTemplates/messages";
         }

@@ -17,15 +17,22 @@
 
 <br> <br>
 <div class = "container">
+  <div class="card bg-dark text-white" style="border-radius: 1rem;">
+<div th:if="${chat.isGroup}">
 
+  <form  style="text-align:right" th:object="${add}" th:action="@{/chats/addPerson/{chatId} (chatId = ${chat.idChat})}" method='POST'>
+    <label > <input class="form-control" type='text' name='add' id="add" placeholder="username"/>
+      <button style="text-align:left" class="btn btn-outline-info" type="submit">
+        Add User
+      </button></label>
+  </form>
+
+  </div>
   <table class ="table table-hover">
 
     <thead>
     <tr>
       <th>Thread </th>
-
-
-
 
     </tr>
     </thead>
@@ -45,14 +52,15 @@
 
     </tbody>
   </table>
-  <form th:object="${newMsg}" th:action="@{/messages/save/{id} (id = ${chatId})}" method='POST'>
+
+  <form th:object="${newMsg}" th:action="@{/messages/save/{id} (id = ${chat.idChat})}" method='POST'>
     <input class="form-control" type='text' name='content' id="*{content}" />
     <button type="submit">
       Send
     </button>
     <br>
   </form>
+  </div>
 </div>
-
 </body>
 </html>

@@ -29,10 +29,10 @@ public class ChatAdapter {
         chats = rt.getForObject(url +chatId, Chat.class);
         return chats;
     }
-    public List<PersonPerChat> getChatsPerUser(String username){
+    public List<Chat> getChatsPerUser(String username){
 
         RestTemplate rt = new RestTemplate();
-        List<PersonPerChat> chats;
+        List<Chat> chats;
         chats = rt.getForObject(url+"all/" + username, ArrayList.class);
         return chats;
     }
@@ -50,9 +50,19 @@ public class ChatAdapter {
         rt.delete(url  + idChat +"/"+username);
     }
 
-    public void newChat(ArrayList<UserPerson> ups) {
+    public void newChat(ArrayList<UserPerson> ups, String chatName) {
 
         RestTemplate rt = new RestTemplate();
-         rt.postForObject(url + "new", ups ,ArrayList.class);
+         rt.postForObject(url + "new/" + chatName, ups ,ArrayList.class);
+    }
+    public void newGroup(ArrayList<UserPerson> ups, String chatName) {
+
+        RestTemplate rt = new RestTemplate();
+        rt.postForObject(url + "newGroup/" + chatName, ups ,ArrayList.class);
+    }
+    public void addPersonToGroup(UserPerson ups, long chatId) {
+
+        RestTemplate rt = new RestTemplate();
+        rt.postForObject(url + "addToGroup/" + chatId , ups ,UserPerson.class);
     }
 }
