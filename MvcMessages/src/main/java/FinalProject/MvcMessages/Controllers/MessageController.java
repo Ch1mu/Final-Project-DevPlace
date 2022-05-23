@@ -29,6 +29,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -101,11 +102,13 @@ public class MessageController {
             model.addAttribute("messages", messages);
 
             String add ="";
+            String filter = "";
             Chat chat = cP.getById(idChat);
             model.addAttribute("add",  add);
             model.addAttribute("newMsg", msg);
             model.addAttribute("chat", chat);
             model.addAttribute("user", userN);
+            model.addAttribute("filter", filter);
             return "ChatTemplates/messages";
         }
         else
@@ -122,4 +125,52 @@ public class MessageController {
            mP.save(msg, chatId);
         return "redirect:/messages/" + chatId;
     }
+
+    @PostMapping("/filter/{chatId}")
+    public String filterMessage(@ModelAttribute("filter") String filter, @PathVariable("chatId") long chatId, Model model){
+        boolean flag = false;
+        boolean redirect = false;
+        ObjectMapper mapper = new ObjectMapper();
+        List<PersonPerChat> ppcs=  mapper.convertValue(cP.getAllUsersPerChat(chatId),  new TypeReference<List<PersonPerChat>>() { });
+
+        String userN = uS.getSessionUsername();
+        for(PersonPerChat ppc: ppcs)
+        {
+            if(ppc.getUser().getUsername().equals(userN))
+            {
+                flag = true;
+                redirect = true;
+            }
+
+        }
+        if(!redirect)
+        {
+            return "redirect:/chats/all";
+        }
+
+        if(flag) {
+
+            Message msg = new Message(pp.getByUsername(userN));
+            msg.setUp(pp.getByUsername(userN));
+
+            model.addAttribute("messages", mP.filter(filter));
+
+            String add ="";
+            String filterN = "";
+            Chat chat = cP.getById(chatId);
+            model.addAttribute("add",  add);
+            model.addAttribute("newMsg", msg);
+            model.addAttribute("chat", chat);
+            model.addAttribute("user", userN);
+            model.addAttribute("filter", filterN);
+            return "ChatTemplates/messages";
+        }
+        else
+        {
+            return"redirect:/chats/all";
+        }
+
+    }
+
+
 }

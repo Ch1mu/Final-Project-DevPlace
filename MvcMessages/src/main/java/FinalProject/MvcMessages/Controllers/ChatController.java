@@ -1,9 +1,11 @@
 package FinalProject.MvcMessages.Controllers;
 
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.ChatPort;
+import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.MessagePort;
 import FinalProject.MvcMessages.Controllers.Apis.MessagesApi.Ports.PersonPort;
 import FinalProject.MvcMessages.Controllers.Services.UserService;
 import FinalProject.MvcMessages.Models.Chat;
+import FinalProject.MvcMessages.Models.Message;
 import FinalProject.MvcMessages.Models.PersonPerChat;
 import FinalProject.MvcMessages.Models.UserPerson;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -28,6 +30,8 @@ public class ChatController {
     @Autowired
     private ChatPort cP;
 
+    @Autowired
+    private MessagePort mP;
 
     @Autowired
     private UserService uS;
@@ -138,6 +142,13 @@ public class ChatController {
 
                 }
         return "redirect:/messages/" +chatId;
-            }
-        }
+    }
+
+
+
+
+
+
+}
+
 
