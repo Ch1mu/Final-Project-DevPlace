@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -18,7 +19,7 @@ public class Message {
     private long idMessage;
     @NotEmpty
     private String content;
-    private Date date;
+    private Timestamp date;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "username")
@@ -27,7 +28,7 @@ public class Message {
     public Message(String content)
     {
         this.content = content;
-        this.date = new Date(System.currentTimeMillis());
+        this.date = new java.sql.Timestamp(new java.util.Date().getTime());
     }
 
 }
