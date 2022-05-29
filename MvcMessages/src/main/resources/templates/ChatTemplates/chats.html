@@ -20,6 +20,18 @@
 <div class="container">
     <div class="col-md-6 mb-4">
         <div class="form-outline">
+            <form style="text-align:left" th:object="${filter}" th:action="@{/chats/filter}" method='POST'>
+                <div class="form-group">
+                    <label for="newChat">Filter Chat
+                        <input required style="background-color:#A6CAD7" type="text" name="filter" class="form-control" id="filter" aria-describedby="emailHelp" placeholder="username"></label>
+                </div>
+                <button type="submit" class="btn btn-dark">Filter</button>
+                <a class="btn btn-outline-light" th:href="@{/chats/all}">Reload</a>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="form-outline">
         <form style="text-align:left" th:object="${newChat}" th:action="@{/chats/new}" method='POST'>
             <div class="form-group">
                 <label for="newChat">New Chat

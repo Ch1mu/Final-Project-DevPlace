@@ -50,6 +50,31 @@ public class ChatController {
         return "ChatTemplates/chats";
     }
 
+    @PostMapping("/filter")
+    public String filterChats(@ModelAttribute("filter") String filter, Model model, RedirectAttributes redirect){
+        String userChatName = "";
+        String groupName = "";
+        String username = uS.getSessionUsername();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<Chat> chats = mapper.convertValue(cP.getChatsPerUser(username), new TypeReference<List<Chat>>() { });
+
+        ArrayList<Chat> fChat = new ArrayList<>();
+
+        for(Chat c : chats) {
+            if(c.getName().contains(filter)) {
+                fChat.add(c);
+
+            }
+        }
+
+        model.addAttribute("chats", fChat);
+        model.addAttribute("newChat", userChatName);
+        model.addAttribute("newGroup", groupName);
+        return "ChatTemplates/chats";
+    }
+
     @PostMapping("/new")
     public String newChat(@ModelAttribute("newChat") String user, RedirectAttributes redirect) {
         boolean flag = true;
