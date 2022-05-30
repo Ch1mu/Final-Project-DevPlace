@@ -10,8 +10,9 @@
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/6b750c94ca.js" crossorigin="anonymous"></script>
 </head>
-<body style="background-color:gray">
+<body style="background-image: url(https://images4.alphacoders.com/379/thumb-1920-37958.jpg); background-size:cover; ">
 <section th:insert="Layouts/layouts::nav"></section>
 
 
@@ -43,12 +44,12 @@
       </button></label>
   </form>
   </div>
-  <div class="card bg-dark text-white" style="border-radius: 1rem;">
+  <div class="card bg-dark text-white" >
   <table class ="table table-hover">
 
     <thead>
     <tr>
-      <th>Thread </th>
+      <th style="text-align: center" th:text="${chat.name}"> </th>
 
     </tr>
     </thead>
@@ -73,13 +74,16 @@
   <form th:object="${newMsg}" th:action="@{/messages/save/{id} (id = ${chat.idChat})}" method='POST'>
     <label style="text-align:center; margin-left:12cm;">
       <input required style="background-color:#A6CAD7" class="form-control" type='text' name='content' id="*{content}" /> </label>
-  <label><button class="btn btn-outline-light" type="submit">
-      Send
+  <label>
+    <button class="btn btn-outline-dark" type="submit" >
+    <i class="fa-solid fa-paper-plane" style="color:white; font-size:0.7cm;"> </i>
     </button>
+    </a>
   </label>
     <br>
   </form>
   </div>
 </div>
+
 </body>
 </html>
