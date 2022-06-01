@@ -85,8 +85,9 @@ public class ChatController {
         ObjectMapper mapper = new ObjectMapper();
         List<Chat> list = new ArrayList<>();
 
-
+        redirect.addFlashAttribute("message", "You can't crate a chat with yourself.");
         if (up != null && !up.getUsername().equals(username)) { //if user to add, if trying to add ourself
+
 
             if (cP.getChatsPerUser(username) != null) { //if there are chats
                 list = mapper.convertValue( cP.getChatsPerUser(username),new TypeReference<List<Chat>>() { //Get All Chats

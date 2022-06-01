@@ -10,20 +10,9 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
-    <style>
-.btn{
-border-radius: 0;
-}
-.btn-md {
-border-width: 0;
-outline: none;
-border-radius: 0;
-box-shadow: 2px 2px 2px rgba(0, 0, 0, .6);
-cursor: pointer;
-}
-</style>
+    <script src="https://kit.fontawesome.com/6b750c94ca.js" crossorigin="anonymous"></script>
 </head>
-<body style="background-color:gray">
+<body style="background-image: url(https://images4.alphacoders.com/379/thumb-1920-37958.jpg); background-size:cover; ">
 <section th:insert="Layouts/layouts::nav"></section>
 <div th:object="${user}" style="text-align:center">
 
@@ -43,10 +32,10 @@ cursor: pointer;
                                 <div class="form-group row justify-content-center">
                                     <div class="mt-4 pt-2">
 
-                                        <a class="btn btn-outline-light" th:href="@{/user/update/{username} (username = ${user.username})}"> Update Info </a>
+                                        <a class="btn btn-outline-light" th:href="@{/user/update/{username} (username = ${user.username})}"><i class="fa-solid fa-pen"></i> </a>
                                     </div>
                                 </div>
-                                <i class="far fa-edit mb-5"></i>
+
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body p-4">
